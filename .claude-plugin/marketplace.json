@@ -1,0 +1,31 @@
+{
+  "name": "claude-marketplace",
+  "owner": {
+    "name": "Claude Marketplace Team",
+    "email": "team@claude-marketplace.com"
+  },
+  "metadata": {
+    "description": "A curated marketplace for Claude Code agents, plugins, skills, and styles",
+    "version": "1.0.0",
+    "pluginRoot": "./marketplace"
+  },
+  "plugins": [
+    {
+      "name": "gemini-web-search-agent",
+      "source": "./marketplace/agents/gemini-web-search-agent",
+      "description": "Use this agent for web searches and retrieving current information using the Gemini CLI",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Marketplace Team"
+      },
+      "homepage": "https://github.com/p-wegner/claude-marketplace",
+      "repository": "https://github.com/p-wegner/claude-marketplace",
+      "license": "MIT",
+      "keywords": ["search", "web", "gemini", "information", "current"],
+      "category": "agents",
+      "tags": ["search", "web", "gemini", "research"],
+      "agents": "./gemini-web-search-agent.md",
+      "strict": false
+    }
+  ]
+}

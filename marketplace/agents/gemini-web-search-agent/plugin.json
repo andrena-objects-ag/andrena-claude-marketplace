@@ -1,0 +1,17 @@
+{
+  "name": "gemini-web-search-agent",
+  "description": "Use this agent for web searches and retrieving current information using the Gemini CLI",
+  "version": "1.0.0",
+  "author": {
+    "name": "Claude Marketplace Team"
+  },
+  "homepage": "https://github.com/p-wegner/claude-marketplace",
+  "repository": "https://github.com/p-wegner/claude-marketplace",
+  "license": "MIT",
+  "keywords": ["search", "web", "gemini", "information", "current"],
+  "category": "agents",
+  "tags": ["search", "web", "gemini", "research"],
+  "agents": [
+    "gemini-web-search-agent.md"
+  ]
+}
