@@ -1,0 +1,19 @@
+{
+  "name": "skill-command-creator",
+  "description": "A comprehensive toolkit for creating Agent Skills and slash commands with templates, validation, and best practices guidance",
+  "version": "1.0.0",
+  "author": {
+    "name": "Claude Marketplace Team",
+    "email": "team@claude-marketplace.com"
+  },
+  "homepage": "https://github.com/p-wegner/claude-marketplace",
+  "repository": "https://github.com/p-wegner/claude-marketplace",
+  "license": "MIT",
+  "keywords": ["skills", "commands", "creation", "templates", "productivity", "development"],
+  "category": "productivity",
+  "tags": ["skills", "commands", "creation", "templates", "automation"],
+  "skills": [
+    "./skills/skill-creator",
+    "./skills/command-creator"
+  ]
+}

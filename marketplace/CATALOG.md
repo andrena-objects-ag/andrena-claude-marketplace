@@ -4,10 +4,10 @@ This is the complete catalog of available extensions in the Claude Marketplace.
 
 ## 📊 Statistics
 
-- **Total Extensions**: 1
+- **Total Extensions**: 2
 - **Agents**: 1
-- **Plugins**: 0
-- **Skills**: 0
+- **Plugins**: 1
+- **Skills**: 2 (included in plugin)
 - **Styles**: 0
 
 ---
@@ -45,13 +45,53 @@ The agent is automatically available after installation and can be used for any 
 
 ## 🔌 Plugins
 
-*No plugins available yet. Check back soon!*
+### [Skill & Command Creator](./plugins/skill-command-creator/)
+
+**Description**: A comprehensive toolkit for creating Agent Skills and slash commands with templates, validation, and best practices guidance
+
+**Version**: 1.0.0
+**Author**: Claude Marketplace Team
+**License**: MIT
+**Category**: Productivity & Development
+
+**Tags**: `skills` `commands` `creation` `templates` `productivity` `development` `automation`
+
+**Features**:
+- **Skill Creator**: Create comprehensive Agent Skills with proper structure, validation, and best practices
+- **Command Creator**: Create custom slash commands with proper syntax, arguments, and advanced features
+- **Template Library**: Access proven templates for different Skill and command types
+- **Validation Tools**: Built-in validation for syntax, structure, and functionality
+- **Best Practices**: Implement Claude's recommended development patterns
+- **Documentation**: Comprehensive examples and troubleshooting guides
+
+**Installation**:
+```bash
+/plugin marketplace add p-wegner/claude-marketplace
+/plugin install skill-command-creator@claude-marketplace
+```
+
+**Usage**:
+The plugin provides two Skills that activate automatically:
+- **Skill Creator**: When you mention creating skills, extending Claude's capabilities, or organizing expertise
+- **Command Creator**: When you mention creating slash commands, automating prompts, or organizing commands
+
+**Included Skills**:
+- Skill Creator (for creating Agent Skills)
+- Command Creator (for creating slash commands)
+
+---
 
 ---
 
 ## 🎯 Skills
 
-*No skills available yet. Check back soon!*
+*Skills are included in the [Skill & Command Creator plugin](./plugins/skill-command-creator/)*
+
+### Available Skills:
+- **Skill Creator**: Create comprehensive Agent Skills with proper structure and validation
+- **Command Creator**: Create custom slash commands with advanced features and best practices
+
+These Skills are automatically available when you install the Skill & Command Creator plugin.
 
 ---
 
@@ -68,6 +108,7 @@ The agent is automatically available after installation and can be used for any 
 - **Development**: Tools for software development tasks
 - **Communication**: Tools for messaging and collaboration
 - **Data Analysis**: Tools for working with data and analytics
+- **Creation Tools**: Tools for creating Skills, commands, and extensions
 
 ---
 
@@ -78,6 +119,13 @@ The agent is automatically available after installation and can be used for any 
 - `gemini` - Google Gemini integration
 - `research` - Research and analysis tools
 - `current` - Current information and real-time data
+- `skills` - Agent Skill creation and management
+- `commands` - Slash command creation and automation
+- `creation` - Tools for creating Skills and commands
+- `templates` - Template libraries and patterns
+- `productivity` - Workflow and efficiency tools
+- `development` - Software development utilities
+- `automation` - Automation and scripting tools
 
 ---
 
@@ -112,5 +160,5 @@ We're looking for high-quality, well-documented extensions that enhance the Clau
 
 ---
 
-**Last Updated**: 2025-10-18
-**Marketplace Version**: 1.0.0
+**Last Updated**: 2025-10-19
+**Marketplace Version**: 1.0.1
