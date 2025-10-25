@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "A curated marketplace for Claude Code agents, plugins, skills, and styles",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -79,6 +79,26 @@
       "skills": [
         "./skills/skill-creator",
         "./skills/command-creator"
+      ],
+      "strict": false
+    },
+    {
+      "name": "parallel-subagent",
+      "source": "./plugins/parallel-subagent-plugin",
+      "description": "Parallel execution specialist for background tasks that can run independently of the main conversation thread without blocking workflow",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Marketplace Team",
+        "email": "team@claude-marketplace.com"
+      },
+      "homepage": "https://github.com/p-wegner/claude-marketplace",
+      "repository": "https://github.com/p-wegner/claude-marketplace",
+      "license": "MIT",
+      "keywords": ["parallel", "background", "async", "subagent", "automation", "productivity"],
+      "category": "productivity",
+      "tags": ["parallel", "background", "async", "subagent", "automation", "productivity"],
+      "agents": [
+        "./agents/parallel-worker.md"
       ],
       "strict": false
     }

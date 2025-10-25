@@ -43,14 +43,24 @@ AI-powered presentation creation system with specialized agents, customizable te
 /plugin install slidegen@claude-marketplace
 ```
 
+### ⚡ [Parallel Subagent](./plugins/parallel-subagent-plugin/)
+**Type**: Plugin with Agent | **Category**: Productivity & Automation
+
+Parallel execution specialist for background tasks that can run independently of the main conversation thread without blocking workflow.
+
+```bash
+/plugin install parallel-subagent@claude-marketplace
+```
+
 ## 📋 Plugin Categories
 
 | Category | Plugins | Description |
 |----------|---------|-------------|
 | 🔍 **Search & Research** | 1 | Web search and information retrieval |
 | 🛠️ **Productivity & Development** | 1 | Skill/command creation tools |
+| ⚡ **Productivity & Automation** | 1 | Parallel task execution and background processing |
 | 📊 **Presentations** | 1 | Presentation creation and automation |
-| 📈 **Total** | **3** | **Comprehensive toolkit** |
+| 📈 **Total** | **4** | **Comprehensive toolkit** |
 
 ## 🎯 What Each Plugin Does
 
@@ -75,6 +85,16 @@ AI-powered presentation creation system with specialized agents, customizable te
   - Research-backed content generation
 - **Use when**: You need to create presentations, slides, or visual content
 
+### ⚡ Parallel Subagent
+- **Perfect for**: Running background tasks without blocking main conversation
+- **Features**:
+  - **Parallel Worker Agent**: Specialized subagent for non-blocking background tasks
+  - Independent execution context separate from main conversation
+  - Background research, file processing, and code analysis
+  - Test execution and validation without interrupting workflow
+  - Automatic invocation for parallelizable tasks
+- **Use when**: You want to run research, analysis, or processing tasks while continuing with main development work
+
 ## 🏗️ Repository Structure
 
 ```
@@ -83,7 +103,8 @@ claude-marketplace/
 ├── 📁 plugins/                  # All available plugins
 │   ├── 🔍 gemini-web-search-agent/
 │   ├── 🛠️ skill-command-creator/
-│   └── 📊 slidegen/
+│   ├── 📊 slidegen/
+│   └── ⚡ parallel-subagent-plugin/
 ├── 📁 docs/                     # Detailed documentation
 │   ├── skills.md               # Agent Skills guide
 │   ├── marketplace.md          # Marketplace usage guide
@@ -129,8 +150,8 @@ This marketplace is licensed under the MIT License. Individual plugins may have 
 
 ---
 
-**Last Updated**: 2025-10-19
-**Marketplace Version**: 1.0.1
-**Total Plugins**: 3
+**Last Updated**: 2025-10-25
+**Marketplace Version**: 1.0.2
+**Total Plugins**: 4
 
 > 💡 **Tip**: Start with the Skill & Command Creator if you're new to plugins - it will help you understand how Skills and commands work!

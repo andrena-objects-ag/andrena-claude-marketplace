@@ -4,9 +4,9 @@ This is the complete catalog of available extensions in the Claude Marketplace.
 
 ## 📊 Statistics
 
-- **Total Extensions**: 3
-- **Agents**: 1
-- **Plugins**: 3
+- **Total Extensions**: 4
+- **Agents**: 2
+- **Plugins**: 4
 - **Skills**: 6 (included in plugins)
 - **Styles**: 0
 
@@ -40,6 +40,36 @@ This is the complete catalog of available extensions in the Claude Marketplace.
 
 **Usage**:
 The agent is automatically available after installation and can be used for any web search tasks requiring current information.
+
+### [Parallel Worker Agent](../plugins/parallel-subagent-plugin/)
+
+**Description**: Parallel execution specialist for background tasks that can run independently of the main conversation thread
+
+**Version**: 1.0.0
+**Author**: Claude Marketplace Team
+**License**: MIT
+**Category**: Productivity & Automation
+
+**Tags**: `parallel` `background` `async` `subagent` `automation` `productivity`
+
+**Features**:
+- Background task execution without blocking main conversation
+- Independent research and analysis capabilities
+- File processing and code analysis in parallel
+- Non-blocking test execution and validation
+- Comprehensive results and error handling
+
+**Installation**:
+```bash
+/plugin marketplace add p-wegner/claude-marketplace
+/plugin install parallel-subagent@claude-marketplace
+```
+
+**Usage**:
+The agent is automatically invoked when Claude identifies parallelizable tasks, or can be used explicitly:
+- "Use the parallel-worker agent to research X while I work on Y"
+- "Analyze this codebase for security issues while I implement the feature"
+- Background research, file processing, testing, and documentation generation
 
 ---
 
@@ -118,6 +148,43 @@ The plugin provides specialized agents and skills for:
 - 2 slash commands for project management
 - Template libraries for various presentation types
 
+### [Parallel Subagent](../plugins/parallel-subagent-plugin/)
+
+**Description**: Parallel execution specialist for background tasks that can run independently of the main conversation thread
+
+**Version**: 1.0.0
+**Author**: Claude Marketplace Team
+**License**: MIT
+**Category**: Productivity & Automation
+
+**Tags**: `parallel` `background` `async` `subagent` `automation` `productivity`
+
+**Features**:
+- **Parallel Worker Agent**: Specialized subagent for non-blocking background tasks
+- **Independent Execution**: Tasks run separately from main conversation context
+- **Research Capabilities**: Background research and analysis without interruption
+- **File Processing**: Parallel file analysis, processing, and transformation
+- **Code Analysis**: Security scanning, linting, and static analysis in background
+- **Testing Automation**: Test suite execution and validation without blocking
+
+**Installation**:
+```bash
+/plugin marketplace add p-wegner/claude-marketplace
+/plugin install parallel-subagent@claude-marketplace
+```
+
+**Usage**:
+The plugin provides a `parallel-worker` agent that can be:
+- **Automatically invoked** when Claude identifies parallelizable tasks
+- **Explicitly requested** using "Use the parallel-worker agent to..."
+- **Used for** background research, file processing, code analysis, testing, and documentation
+
+**Key Use Cases**:
+- "Analyze this codebase for security issues while I work on the main feature"
+- "Research API design patterns while I implement the endpoints"
+- "Process log files for errors while I continue with development"
+- "Run test suite while I review code changes"
+
 ---
 
 ---
@@ -151,8 +218,9 @@ These Skills are automatically available when you install their respective plugi
 ## 📝 Categories
 
 - **Search & Research**: Tools for finding and retrieving information
-- **Productivity**: Tools for enhancing workflow and efficiency
+- **Productivity & Automation**: Tools for enhancing workflow and efficiency
 - **Development**: Tools for software development tasks
+- **Presentations**: Tools for creating and managing presentations
 - **Communication**: Tools for messaging and collaboration
 - **Data Analysis**: Tools for working with data and analytics
 - **Creation Tools**: Tools for creating Skills, commands, and extensions
@@ -166,6 +234,10 @@ These Skills are automatically available when you install their respective plugi
 - `gemini` - Google Gemini integration
 - `research` - Research and analysis tools
 - `current` - Current information and real-time data
+- `parallel` - Parallel execution and background processing
+- `background` - Background task execution
+- `async` - Asynchronous operations
+- `subagent` - Specialized AI agents
 - `skills` - Agent Skill creation and management
 - `commands` - Slash command creation and automation
 - `creation` - Tools for creating Skills and commands
@@ -211,5 +283,5 @@ We're looking for high-quality, well-documented extensions that enhance the Clau
 
 ---
 
-**Last Updated**: 2025-10-19
-**Marketplace Version**: 1.0.1
+**Last Updated**: 2025-10-25
+**Marketplace Version**: 1.0.2
