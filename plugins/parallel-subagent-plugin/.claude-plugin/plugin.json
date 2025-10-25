@@ -9,6 +9,5 @@
   "homepage": "https://github.com/claude-marketplace/parallel-subagent",
   "repository": "https://github.com/claude-marketplace/parallel-subagent",
   "license": "MIT",
-  "keywords": ["parallel", "background", "async", "subagent", "automation"],
-  "agents": ["./agents/parallel-worker.md"]
+  "keywords": ["parallel", "background", "async", "subagent", "automation"]
 }
