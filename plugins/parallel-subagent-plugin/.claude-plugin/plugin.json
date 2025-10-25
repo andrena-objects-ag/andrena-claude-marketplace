@@ -1,6 +1,6 @@
 {
   "name": "parallel-subagent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Parallel subagent for executing background tasks alongside main Claude conversations",
   "author": {
     "name": "Claude Marketplace Team",

@@ -86,7 +86,7 @@
       "name": "parallel-subagent",
       "source": "./plugins/parallel-subagent-plugin",
       "description": "Parallel execution specialist for background tasks that can run independently of the main conversation thread without blocking workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Claude Marketplace Team",
         "email": "team@claude-marketplace.com"
