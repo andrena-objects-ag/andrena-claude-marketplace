@@ -101,6 +101,26 @@
         "./agents/parallel-worker.md"
       ],
       "strict": true
+    },
+    {
+      "name": "coding-aider",
+      "source": "./plugins/coding-aider",
+      "description": "Coding Aider integration plugin for generating structured development plans that mirror the IntelliJ coding-aider plugin's plan system",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Marketplace Team",
+        "email": "team@claude-marketplace.com"
+      },
+      "homepage": "https://github.com/p-wegner/claude-marketplace",
+      "repository": "https://github.com/p-wegner/claude-marketplace",
+      "license": "MIT",
+      "keywords": ["coding-aider", "development", "planning", "structured-plans", "intellij"],
+      "category": "development",
+      "tags": ["coding-aider", "development", "planning", "structured-plans", "intellij", "skills"],
+      "skills": [
+        "./skills/coding-aider-plan-generator"
+      ],
+      "strict": true
     }
   ]
 }

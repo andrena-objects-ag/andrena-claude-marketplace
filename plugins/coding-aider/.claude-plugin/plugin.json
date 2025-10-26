@@ -1,0 +1,14 @@
+{
+  "name": "coding-aider",
+  "version": "1.0.0",
+  "description": "Coding Aider integration plugin for generating structured development plans",
+  "author": {
+    "name": "Claude Marketplace",
+    "email": "noreply@anthropic.com"
+  },
+  "homepage": "https://github.com/anthropics/claude-marketplace",
+  "repository": "https://github.com/anthropics/claude-marketplace",
+  "license": "MIT",
+  "keywords": ["coding-aider", "development", "planning", "structured-plans"],
+  "skills": ["./skills/coding-aider-plan-generator"]
+}

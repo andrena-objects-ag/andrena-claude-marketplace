@@ -52,6 +52,15 @@ Parallel execution specialist for background tasks that can run independently of
 /plugin install parallel-subagent@claude-marketplace
 ```
 
+### 💻 [Coding Aider](./plugins/coding-aider/)
+**Type**: Plugin with Skill | **Category**: Development & Planning
+
+Generate structured coding-aider plans that mirror the IntelliJ coding-aider plugin's plan system, complete with overview, goals, implementation checklist, and file context management.
+
+```bash
+/plugin install coding-aider@claude-marketplace
+```
+
 ## 📋 Plugin Categories
 
 | Category | Plugins | Description |
@@ -60,7 +69,8 @@ Parallel execution specialist for background tasks that can run independently of
 | 🛠️ **Productivity & Development** | 1 | Skill/command creation tools |
 | ⚡ **Productivity & Automation** | 1 | Parallel task execution and background processing |
 | 📊 **Presentations** | 1 | Presentation creation and automation |
-| 📈 **Total** | **4** | **Comprehensive toolkit** |
+| 💻 **Development & Planning** | 1 | Structured development planning and coding-aider integration |
+| 📈 **Total** | **5** | **Comprehensive toolkit** |
 
 ## 🎯 What Each Plugin Does
 
@@ -95,6 +105,16 @@ Parallel execution specialist for background tasks that can run independently of
   - Automatic invocation for parallelizable tasks
 - **Use when**: You want to run research, analysis, or processing tasks while continuing with main development work
 
+### 💻 Coding Aider
+- **Perfect for**: Creating structured development plans and systematic project management
+- **Features**:
+  - **Plan Generator Skill**: Creates coding-aider style plans with overview, goals, and implementation checklists
+  - Structured file generation (plan, checklist, context files)
+  - Atomic task breakdown for systematic development
+  - File context management with read/write permissions
+  - IntelliJ coding-aider plugin compatibility
+- **Use when**: You need structured development planning, want to organize complex projects, or prefer the coding-aider planning methodology
+
 ## 🏗️ Repository Structure
 
 ```
@@ -104,7 +124,8 @@ claude-marketplace/
 │   ├── 🔍 gemini-web-search-agent/
 │   ├── 🛠️ skill-command-creator/
 │   ├── 📊 slidegen/
-│   └── ⚡ parallel-subagent-plugin/
+│   ├── ⚡ parallel-subagent-plugin/
+│   └── 💻 coding-aider/
 ├── 📁 docs/                     # Detailed documentation
 │   ├── skills.md               # Agent Skills guide
 │   ├── marketplace.md          # Marketplace usage guide
@@ -150,8 +171,8 @@ This marketplace is licensed under the MIT License. Individual plugins may have 
 
 ---
 
-**Last Updated**: 2025-10-25
+**Last Updated**: 2025-10-26
 **Marketplace Version**: 1.0.2
-**Total Plugins**: 4
+**Total Plugins**: 5
 
-> 💡 **Tip**: Start with the Skill & Command Creator if you're new to plugins - it will help you understand how Skills and commands work!
+> 💡 **Tip**: Start with the Skill & Command Creator if you're new to plugins - it will help you understand how Skills and commands work! For structured development planning, try the Coding Aider plugin.
