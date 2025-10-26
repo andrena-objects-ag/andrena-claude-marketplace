@@ -13,7 +13,7 @@ Create a coding-aider plan for implementing user authentication with JWT tokens
 
 #### user-authentication.md
 ```markdown
-# [Coding Aider Plan]
+# [Coding Aider Plan] This is a sample coding-aider plan generated for implementing user authentication with JWT tokens.
 
 # User Authentication with JWT Tokens
 
@@ -106,7 +106,7 @@ I need a coding-aider plan for refactoring the payment processing module to use 
 
 #### payment-processing-strategy-refactor.md
 ```markdown
-# [Coding Aider Plan]
+# [Coding Aider Plan] This is a sample coding-aider plan generated for refactoring the payment processing module to use the strategy pattern.
 
 # Payment Processing Strategy Pattern Refactor
 
@@ -197,7 +197,7 @@ Create a coding-aider plan for fixing the memory leak in the data processor serv
 
 #### data-processor-memory-leak-fix.md
 ```markdown
-# [Coding Aider Plan]
+# [Coding Aider Plan] This is a sample coding-aider plan generated for fixing the memory leak in the data processor service.
 
 # Data Processor Memory Leak Fix
 

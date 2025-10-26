@@ -35,12 +35,13 @@ Create the plan storage structure:
 - Create `.coding-aider-plans/` directory if it doesn't exist
 - Generate a plan name based on the feature/task (kebab-case)
 - Plan files will be stored as: `{plan_name}.md`, `{plan_name}_checklist.md`, `{plan_name}_context.yaml`
+- Markdown File Headings must start with `# [Coding Aider Plan]` and `# [Coding Aider Plan - Checklist]` respectively since this is used by the coding-aider plugin to identify plan files
 
 ### 3. Main Plan File Generation
 Create the main plan file (`{plan_name}.md`) with this structure:
 
 ```markdown
-# [Coding Aider Plan]
+# [Coding Aider Plan] Plan for a feature or task
 
 # Plan Title
 

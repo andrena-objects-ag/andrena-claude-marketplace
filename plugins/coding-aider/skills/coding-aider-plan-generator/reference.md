@@ -192,37 +192,3 @@ The context.yaml file provides file context to aider commands:
 2. Context files prepare aider environment
 3. Aider executes implementation based on plan
 4. Checklist tracks progress through plan items
-
-## Error Handling
-
-### Common Issues
-- **Missing Files**: Context files reference non-existent files
-- **Permission Issues**: Unable to create plan directory
-- **Invalid YAML**: Malformed context.yaml structure
-- **Naming Conflicts**: Plan name already exists
-
-### Resolution Strategies
-- Validate file paths before creating context
-- Check directory permissions and create if needed
-- Use YAML validation for context files
-- Generate unique plan names with suffixes
-
-## Best Practices
-
-### Plan Quality
-- Make goals specific and measurable
-- Break implementation into atomic tasks
-- Include comprehensive testing steps
-- Maintain accurate file context
-
-### Maintenance
-- Update context files as codebase changes
-- Mark completed checklist items
-- Add new tasks if scope expands
-- Archive completed plans properly
-
-### Collaboration
-- Use clear, descriptive task names
-- Include relevant documentation links
-- Provide sufficient context for team members
-- Follow consistent naming conventions

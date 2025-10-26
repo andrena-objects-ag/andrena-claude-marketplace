@@ -1,4 +1,4 @@
-# [Coding Aider Plan]
+# [Coding Aider Plan] 
 
 # {{PLAN_TITLE}}
 
