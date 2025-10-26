@@ -5,7 +5,9 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(mkdir:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(cp:*)",
+      "Bash(claude plugin validate:*)"
     ],
     "deny": [],
     "ask": []
