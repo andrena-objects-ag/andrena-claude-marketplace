@@ -25,7 +25,12 @@ SlideGen is a comprehensive presentation creation system that uses specialized A
    /setup-agents
    ```
 
-3. **Start creating content** - the agents will guide you through:
+3. **Initialize a git repository for your workshop**:
+   ```
+   /init-workshop-repo "my-workshop-name" "Workshop description" private
+   ```
+
+4. **Start creating content** - the agents will guide you through:
    - Research and content gathering
    - Slide architecture and design
    - Content review and enhancement
@@ -52,6 +57,7 @@ SlideGen is a comprehensive presentation creation system that uses specialized A
 
 - **/new-presentation**: Create a new presentation project
 - **/setup-agents**: Initialize presentation agents for your project
+- **/init-workshop-repo**: Initialize git repository and push to GitHub for workshop materials
 
 ## Features
 
@@ -91,8 +97,8 @@ MIT License - see marketplace license for details.
 
 ## Version
 
-**Version**: 1.0.0
-**Last Updated**: 2025-10-19
+**Version**: 1.0.2
+**Last Updated**: 2025-11-10
 
 ## Getting Help
 

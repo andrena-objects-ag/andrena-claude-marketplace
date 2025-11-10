@@ -45,7 +45,9 @@ Claude Code plugins can contain multiple component types:
 ### Adding New Plugins
 
 1. **Create plugin directory** in `plugins/`
-2. **Add plugin manifest** (`plugin.json`) with metadata and component paths
+2. **Choose ONE approach for plugin definition**:
+   - **Option A**: Use `plugin.json` inside plugin directory (recommended for simple plugins)
+   - **Option B**: Define components directly in `marketplace.json` (recommended for complex plugins)
 3. **Update marketplace.json** with plugin entry following schema:
    ```json
    {
@@ -57,8 +59,20 @@ Claude Code plugins can contain multiple component types:
      "strict": false
    }
    ```
-4. **Update plugin README.md** with plugin description
-5. **Update toplevel repo README.md** with added plugin
+4. **Set strict mode appropriately**:
+   - `strict: true` when defining components in `marketplace.json` with detailed specs
+   - `strict: false` when using `plugin.json` for component definitions
+5. **Update plugin README.md** with plugin description
+6. **Update toplevel repo README.md** with added plugin
+
+### Plugin Manifest Conflicts - IMPORTANT
+
+**Never define components in both `plugin.json` AND `marketplace.json`**. This causes conflicting manifest errors.
+
+**Rules to avoid conflicts**:
+- If plugin has detailed component specs in `marketplace.json` → Set `strict: true` and NO `plugin.json`
+- If plugin uses `plugin.json` → Define components only there and set `strict: false` in marketplace
+- Complex plugins with many components (agents, skills, commands) should use `strict: true`
 
 ### Plugin Versioning
 

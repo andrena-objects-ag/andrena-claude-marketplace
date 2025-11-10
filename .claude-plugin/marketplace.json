@@ -31,7 +31,7 @@
       "name": "slidegen",
       "source": "./plugins/slidegen",
       "description": "Complete presentation creation system with specialized agents, customizable templates, and AI-powered workflow automation. Supports Marp and Slidev with research-backed content generation and professional branding.",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Claude Marketplace Team"
       },
@@ -43,7 +43,8 @@
       "tags": ["presentations", "marp", "slidev", "templates", "automation", "skills"],
       "commands": [
         "./commands/new-presentation.md",
-        "./commands/setup-agents.md"
+        "./commands/setup-agents.md",
+        "./commands/init-workshop-repo.md"
       ],
       "agents": [
         "./agents/slide-architect.md",
@@ -59,7 +60,7 @@
         "./skills/template-customizer/",
         "./skills/research-presenter/"
       ],
-      "strict": false
+      "strict": true
     },
     {
       "name": "skill-command-creator",
