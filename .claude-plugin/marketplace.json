@@ -31,7 +31,7 @@
       "name": "slidegen",
       "source": "./plugins/slidegen",
       "description": "Complete presentation creation system with specialized agents, customizable templates, and AI-powered workflow automation. Supports Marp and Slidev with research-backed content generation and professional branding.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Claude Marketplace Team"
       },
