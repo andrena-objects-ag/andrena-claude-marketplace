@@ -1,0 +1,62 @@
+{
+  "description": "Adversarial checkpoint validation hooks that trigger challenger agent at key points",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/scripts/challenger-trigger.py post-tool",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "CHALLENGE POINT: Claude is attempting to stop. Review all recently completed work items. Challenge: Are all checkboxes actually complete with evidence? Were your previous challenges addressed? What critical issues remain? Provide structured challenge report. If work is incomplete or critical issues exist, you MUST set decision: 'block' with clear reason.",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "CHALLENGE POINT: Subagent completed. Review: Did the subagent stay within scope? Were assumptions challenged? Is the quality sufficient? Challenge the work rigorously before allowing stop.",
+            "timeout": 45
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/scripts/challenger-trigger.py check-plan-exists",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/scripts/challenger-trigger.py init-challenger",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

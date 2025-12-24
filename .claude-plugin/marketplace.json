@@ -145,6 +145,32 @@
         "./skills/prd-to-implementation-plan"
       ],
       "strict": true
+    },
+    {
+      "name": "adversarial-checkpoint-plugin",
+      "source": "./plugins/adversarial-checkpoint-plugin",
+      "description": "Adversarial checkpoint validation system with resumable challenger agent. Automatically challenges work at plan checkpoints using hooks and maintains persistent challenge context across the session.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Marketplace Team"
+      },
+      "homepage": "https://github.com/p-wegner/peters-cc-market",
+      "repository": "https://github.com/p-wegner/peters-cc-market",
+      "license": "MIT",
+      "keywords": ["validation", "checkpoint", "challenger", "adversarial", "quality", "safety", "resumable", "agent", "hooks"],
+      "category": "development",
+      "tags": ["validation", "checkpoint", "challenger", "adversarial", "quality", "safety", "hooks", "planning"],
+      "agents": [
+        "./agents/adversarial-challenger.md"
+      ],
+      "skills": [
+        "./skills/plan-validator"
+      ],
+      "commands": [
+        "./commands/plan.md"
+      ],
+      "hooks": "./hooks/hooks.json",
+      "strict": true
     }
   ]
 }

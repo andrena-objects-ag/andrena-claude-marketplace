@@ -1,0 +1,22 @@
+{
+  "name": "adversarial-checkpoint-plugin",
+  "description": "Adversarial checkpoint validation system with resumable challenger agent. Automatically challenges work at plan checkpoints using hooks and maintains persistent challenge context across the session.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Claude Marketplace"
+  },
+  "homepage": "https://github.com/p-wegner/claude-marketplace",
+  "repository": "https://github.com/p-wegner/claude-marketplace",
+  "license": "MIT",
+  "keywords": ["validation", "checkpoint", "challenger", "adversarial", "quality", "safety", "resumable", "agent"],
+  "agents": [
+    "adversarial-challenger.md"
+  ],
+  "skills": [
+    "./skills/plan-validator"
+  ],
+  "commands": [
+    "./commands/plan.md"
+  ],
+  "hooks": "./hooks/hooks.json"
+}
