@@ -1,0 +1,16 @@
+# Local settings
+.claude/settings.local.json
+*.local.json
+
+# Temporary files
+tmpclaude-*
+tmp/
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
