@@ -12,8 +12,8 @@ This plugin provides two powerful Skills:
 ## Installation
 
 ```bash
-/plugin marketplace add p-wegner/claude-marketplace
-/plugin install skill-command-creator@claude-marketplace
+/plugin marketplace add andrena-objects-ag/andrena-claude-marketplace
+/plugin install skill-command-creator@andrena-marketplace
 ```
 
 ## Features
@@ -21,18 +21,22 @@ This plugin provides two powerful Skills:
 ### Skill Creator
 - **Structured Creation**: Follow proper Skill directory structure and naming conventions
 - **YAML Validation**: Ensure correct frontmatter syntax and required fields
-- **Best Practices**: Implement Claude's recommended Skill development patterns
+- **Best Practices**: Implement Claude's recommended Skill development patterns including progressive disclosure
 - **Template Library**: Access proven templates for different Skill types
 - **Validation Tools**: Built-in validation for syntax, structure, and functionality
 - **Supporting Files**: Create reference docs, examples, scripts, and templates
+- **Advanced Features**: Forked contexts, hooks, tool restrictions, visibility controls
+- **Subagent Integration**: Configure Skills for use with custom subagents
 
 ### Command Creator
 - **Argument Handling**: Support for positional arguments (`$1`, `$2`) and all arguments (`$ARGUMENTS`)
 - **Frontmatter Management**: Proper YAML configuration with all supported fields
-- **Advanced Features**: Bash integration, file references, thinking mode
-- **Tool Permissions**: granular control over allowed tools
+- **Advanced Features**: Bash integration, file references, thinking mode, hooks, forked contexts
+- **Tool Permissions**: Granular control over allowed tools with specific command restrictions
 - **Validation**: Syntax checking and functionality testing
 - **Organization**: Support for subdirectories and command categorization
+- **Hooks Integration**: Define scoped hooks with `once: true` option for one-time execution
+- **Isolated Execution**: Run commands in forked sub-agent contexts with custom agent types
 
 ## Usage
 

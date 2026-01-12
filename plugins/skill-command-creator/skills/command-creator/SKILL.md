@@ -55,17 +55,29 @@ Include relevant frontmatter fields:
 description: Brief description of what the command does
 argument-hint: [optional] [arguments] [pattern]
 allowed-tools: Read, Write, Edit, Bash(git add:*), Bash(git status:*)
-model: claude-3-5-haiku-20241022  # optional specific model
-disable-model-invocation: false  # optional, prevents tool execution
+model: claude-3-5-haiku-20241022
+context: fork
+agent: general-purpose
+disable-model-invocation: false
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "./scripts/validate.sh $TOOL_INPUT"
+          once: true
 ---
 ```
 
 **Frontmatter Fields Explained**:
 - `description`: Brief summary shown in `/help` and command discovery
-- `argument-hint`: Expected argument pattern shown during autocomplete
+- `argument-hint`: Expected argument pattern shown during autocomplete (e.g., `[message]` or `[pr-number] [priority]`)
 - `allowed-tools`: Specific tools this command can use (inherits from conversation if not specified)
-- `model`: Force specific model for this command
-- `disable-model-invocation`: Prevent this command from being called via SlashCommand tool
+- `model`: Force specific model for this command (e.g., claude-sonnet-4-20250514)
+- `context`: Set to `fork` to run command in a forked sub-agent context with its own conversation history
+- `agent`: Specify agent type when using `context: fork` (e.g., Explore, Plan, general-purpose, or custom agent name)
+- `disable-model-invocation`: Prevent this command from being called via Skill tool (defaults to false)
+- `hooks`: Define hooks scoped to this command's execution (PreToolUse, PostToolUse, Stop events)
 
 ### 5. Handle Command Arguments
 
@@ -144,6 +156,49 @@ Please think step by step when analyzing this code.
 
 Use extended thinking to provide comprehensive insights.
 ```
+
+#### Hooks
+Define hooks that run during command execution with the `once: true` option to run only once per session:
+
+```markdown
+---
+description: Deploy to staging with validation
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "./scripts/validate-deploy.sh"
+          once: true
+  PostToolUse:
+    - matcher: "Write|Edit"
+      hooks:
+        - type: prompt
+          prompt: "Verify the changes are correct: $ARGUMENTS"
+---
+
+Deploy the current branch to staging environment.
+```
+
+Hooks are scoped to the command's execution and automatically cleaned up when the command finishes.
+
+#### Forked Context
+Use `context: fork` to run the command in an isolated sub-agent with its own conversation history:
+
+```markdown
+---
+description: Generate comprehensive test suite
+context: fork
+agent: general-purpose
+---
+
+Generate complete test coverage for the current module including:
+- Unit tests
+- Integration tests
+- Edge cases
+```
+
+The `agent` field specifies which agent type to use (Explore, Plan, general-purpose, or custom agent name from `.claude/agents/`).
 
 ### 7. Write Command Content
 

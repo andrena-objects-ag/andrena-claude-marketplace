@@ -46,10 +46,16 @@ allowed-tools: Read, Write, Edit, Grep, Glob, Bash (optional - restrict tools if
 ---
 ```
 
-**Frontmatter Requirements**:
-- `name`: Clear, descriptive name (kebab-case for directories)
-- `description**: Must include both what the Skill does AND when to use it
-- `allowed-tools`: Optional - specify which tools the Skill can use
+**Frontmatter Fields**:
+- `name`: Clear, descriptive name (lowercase letters, numbers, hyphens only, max 64 chars)
+- `description`: Must include both what the Skill does AND when to use it (max 1024 chars)
+- `allowed-tools`: Optional - specify which tools the Skill can use without asking permission
+- `model`: Optional - specific model to use when this Skill is active (e.g., claude-sonnet-4-20250514)
+- `context`: Optional - set to `fork` to run Skill in a forked sub-agent context
+- `agent`: Optional - specify agent type when using `context: fork` (e.g., Explore, Plan, general-purpose)
+- `hooks`: Optional - define hooks scoped to this Skill's lifecycle (PreToolUse, PostToolUse, Stop)
+- `user-invocable`: Optional - controls Skill visibility in slash menu (defaults to true)
+- `disable-model-invocation`: Optional - prevents Skill from being called via Skill tool
 
 ### 4. Write Comprehensive Content
 
@@ -77,13 +83,42 @@ Dependencies, packages, or prerequisites.
 Common issues and solutions.
 ```
 
-### 5. Add Supporting Files (Optional)
+### 5. Add Supporting Files with Progressive Disclosure
+
+Use **progressive disclosure** to keep context focused: put essential information in SKILL.md and detailed reference material in separate files that Claude reads only when needed.
+
+**Keep SKILL.md under 500 lines for optimal performance.** If content exceeds this, split detailed material into separate files.
 
 Create supporting files as needed:
-- **reference.md**: Detailed documentation, API references
-- **examples.md**: Specific usage examples and patterns
-- **scripts/**: Utility scripts, validation tools
+- **reference.md**: Detailed documentation, API references (loaded when needed)
+- **examples.md**: Specific usage examples and patterns (loaded when needed)
+- **scripts/**: Utility scripts executed without loading contents into context
 - **templates/**: Reusable templates or boilerplate
+
+**Example structure with progressive disclosure:**
+```
+my-skill/
+├── SKILL.md (required - overview and navigation)
+├── reference.md (detailed API docs - loaded when needed)
+├── examples.md (usage examples - loaded when needed)
+└── scripts/
+    └── helper.py (utility script - executed, not loaded)
+```
+
+**Link to supporting files in SKILL.md:**
+```markdown
+## Additional resources
+- For complete API details, see [reference.md](reference.md)
+- For usage examples, see [examples.md](examples.md)
+
+## Utility scripts
+To validate input files, run:
+```bash
+python scripts/helper.py input.txt
+```
+```
+
+**Keep references one level deep.** Link directly from SKILL.md to reference files. Avoid deeply nested references (file A → file B → file C).
 
 ### 6. Validate the Skill
 
@@ -122,16 +157,74 @@ Use for: Team workflows, shared utilities, project-specific expertise
 - **Be specific**: "Analyze Excel spreadsheets and create pivot tables" vs "Helps with data"
 - **Include triggers**: "Use when working with Excel files, .xlsx files, or tabular data"
 - **Specify outcomes**: What results can users expect?
+- **Max 1024 characters**: Keep descriptions focused and concise
 
 ### Skill Design
 - **Single purpose**: Each Skill should address one capability
-- **Progressive disclosure**: Include only essential content in SKILL.md, reference other files
+- **Progressive disclosure**: Keep SKILL.md under 500 lines; put detailed docs in separate files
 - **Tool permissions**: Restrict tools when Skill has limited scope
+- **Forked context**: Use `context: fork` for complex multi-step operations to isolate conversation history
+- **Visibility control**: Use `user-invocable: false` for Skills that Claude should invoke but users shouldn't call directly
+
+### Invocation Control
+- **Manual invocation**: Users type `/skill-name` (controlled by `user-invocable`)
+- **Programmatic invocation**: Claude calls via Skill tool (controlled by `disable-model-invocation`)
+- **Automatic discovery**: Claude reads description and loads when relevant (always enabled)
+
+### Tool Restrictions with allowed-tools
+Specify tools in two formats:
+
+**Comma-separated string:**
+```yaml
+allowed-tools: Read, Grep, Glob
+```
+
+**YAML list (better readability):**
+```yaml
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+```
+
+When specified, Claude can only use listed tools without permission during Skill execution. Omit for unrestricted tool access.
+
+### Skills and Subagents
+**Give subagents access to Skills:**
+Custom subagents don't automatically inherit Skills. List Skills in subagent's `skills` field:
+
+```yaml
+# .claude/agents/code-reviewer.md
+---
+name: code-reviewer
+description: Review code for quality and best practices
+skills: pr-review, security-check
+---
+```
+
+Full Skill content is injected at startup, not just made available for invocation.
+
+**Note:** Built-in agents (Explore, Plan, general-purpose) cannot access your Skills. Only custom subagents with explicit `skills` field can use Skills.
+
+**Run Skills in forked context:**
+Use `context: fork` for complex multi-step operations with isolated conversation history:
+
+```yaml
+---
+name: code-analysis
+description: Analyze code quality and generate detailed reports
+context: fork
+agent: general-purpose
+---
+```
+
+The `agent` field specifies which agent type to use (Explore, Plan, general-purpose, or custom agent name).
 
 ### Testing
 - Test with scenarios matching your description
 - Verify Skill activates automatically when expected
 - Test supporting files and scripts work correctly
+- For `context: fork` Skills, verify isolation works as expected
 
 ## Common Templates
 
@@ -160,6 +253,17 @@ description: Brief description of what this Skill does and when to use it
 name: Advanced Task Name
 description: Comprehensive description with specific triggers and use cases. Use when [specific conditions].
 allowed-tools: Read, Write, Edit, Grep
+model: claude-sonnet-4-20250514
+context: fork
+agent: general-purpose
+user-invocable: true
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "./scripts/validate.sh $TOOL_INPUT"
+          once: true
 ---
 
 # Advanced Task Name
