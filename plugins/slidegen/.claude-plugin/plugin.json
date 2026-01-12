@@ -3,10 +3,11 @@
   "description": "Complete presentation creation system with specialized agents, customizable templates, and AI-powered workflow automation. Supports Marp and Slidev with research-backed content generation.",
   "version": "1.0.1",
   "author": {
-    "name": "Claude Marketplace Team"
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
   },
-  "homepage": "https://github.com/p-wegner/claude-marketplace",
-  "repository": "https://github.com/p-wegner/claude-marketplace",
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
   "license": "MIT",
   "keywords": ["presentations", "marp", "slidev", "slides", "ai", "automation", "templates"],
   "commands": [

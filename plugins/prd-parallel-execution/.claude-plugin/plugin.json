@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "PRD to parallel implementation execution system with contract-first development approach and automated subagent orchestration",
   "author": {
-    "name": "Claude Marketplace Team",
-    "email": "team@claude-marketplace.com"
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
   },
-  "homepage": "https://github.com/p-wegner/claude-marketplace",
-  "repository": "https://github.com/p-wegner/claude-marketplace",
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
   "license": "MIT",
   "keywords": ["prd", "parallel", "execution", "implementation", "contract-first", "development", "planning"],
   "commands": ["./commands/execute-prd-plan.md"],

@@ -16,10 +16,11 @@
       "description": "Use this agent for web searches and retrieving current information using the Gemini CLI",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Marketplace Team"
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
       },
-      "homepage": "https://github.com/p-wegner/peters-cc-market",
-      "repository": "https://github.com/p-wegner/peters-cc-market",
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
       "license": "MIT",
       "keywords": ["search", "web", "gemini", "information", "current"],
       "category": "agents",
@@ -33,10 +34,11 @@
       "description": "Complete presentation creation system with specialized agents, customizable templates, and AI-powered workflow automation. Supports Marp and Slidev with research-backed content generation and professional branding.",
       "version": "1.0.2",
       "author": {
-        "name": "Claude Marketplace Team"
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
       },
-      "homepage": "https://github.com/p-wegner/peters-cc-market",
-      "repository": "https://github.com/p-wegner/peters-cc-market",
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
       "license": "MIT",
       "keywords": ["presentations", "marp", "slidev", "slides", "ai", "automation", "templates"],
       "category": "productivity",
@@ -68,11 +70,11 @@
       "description": "A comprehensive toolkit for creating Agent Skills and slash commands with templates, validation, and best practices guidance",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Marketplace Team",
-        "email": "team@claude-marketplace.com"
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
       },
-      "homepage": "https://github.com/p-wegner/peters-cc-market",
-      "repository": "https://github.com/p-wegner/peters-cc-market",
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
       "license": "MIT",
       "keywords": ["skills", "commands", "creation", "templates", "productivity", "development"],
       "category": "productivity",
@@ -89,11 +91,11 @@
       "description": "Parallel execution specialist for background tasks that can run independently of the main conversation thread without blocking workflow",
       "version": "1.0.1",
       "author": {
-        "name": "Claude Marketplace Team",
-        "email": "team@claude-marketplace.com"
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
       },
-      "homepage": "https://github.com/p-wegner/peters-cc-market",
-      "repository": "https://github.com/p-wegner/peters-cc-market",
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
       "license": "MIT",
       "keywords": ["parallel", "background", "async", "subagent", "automation", "productivity"],
       "category": "productivity",
@@ -109,11 +111,11 @@
       "description": "Coding Aider integration plugin for generating structured development plans that mirror the IntelliJ coding-aider plugin's plan system",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Marketplace Team",
-        "email": "team@claude-marketplace.com"
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
       },
-      "homepage": "https://github.com/p-wegner/peters-cc-market",
-      "repository": "https://github.com/p-wegner/peters-cc-market",
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
       "license": "MIT",
       "keywords": ["coding-aider", "development", "planning", "structured-plans", "intellij"],
       "category": "development",
@@ -129,11 +131,11 @@
       "description": "PRD to parallel implementation execution system with contract-first development approach and automated subagent orchestration",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Marketplace Team",
-        "email": "team@claude-marketplace.com"
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
       },
-      "homepage": "https://github.com/p-wegner/peters-cc-market",
-      "repository": "https://github.com/p-wegner/peters-cc-market",
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
       "license": "MIT",
       "keywords": ["prd", "parallel", "execution", "implementation", "contract-first", "development", "planning", "automation"],
       "category": "development",
@@ -152,10 +154,11 @@
       "description": "Adversarial checkpoint validation system with resumable challenger agent. Automatically challenges work at plan checkpoints using hooks and maintains persistent challenge context across the session.",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Marketplace Team"
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
       },
-      "homepage": "https://github.com/p-wegner/peters-cc-market",
-      "repository": "https://github.com/p-wegner/peters-cc-market",
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
       "license": "MIT",
       "keywords": ["validation", "checkpoint", "challenger", "adversarial", "quality", "safety", "resumable", "agent", "hooks"],
       "category": "development",

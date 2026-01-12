@@ -3,11 +3,11 @@
   "description": "A comprehensive toolkit for creating Agent Skills and slash commands with templates, validation, and best practices guidance",
   "version": "1.0.0",
   "author": {
-    "name": "Claude Marketplace Team",
-    "email": "team@claude-marketplace.com"
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
   },
-  "homepage": "https://github.com/p-wegner/claude-marketplace",
-  "repository": "https://github.com/p-wegner/claude-marketplace",
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
   "license": "MIT",
   "keywords": ["skills", "commands", "creation", "templates", "productivity", "development"],
   "skills": [

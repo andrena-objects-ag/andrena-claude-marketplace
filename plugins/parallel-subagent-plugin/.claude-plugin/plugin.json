@@ -3,11 +3,11 @@
   "version": "1.0.1",
   "description": "Parallel subagent for executing background tasks alongside main Claude conversations",
   "author": {
-    "name": "Claude Marketplace Team",
-    "email": "team@claude-marketplace.com"
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
   },
-  "homepage": "https://github.com/claude-marketplace/parallel-subagent",
-  "repository": "https://github.com/claude-marketplace/parallel-subagent",
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
   "license": "MIT",
   "keywords": ["parallel", "background", "async", "subagent", "automation"]
 }
