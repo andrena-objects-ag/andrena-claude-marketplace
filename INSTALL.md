@@ -7,7 +7,7 @@
 ### 1. Add the Marketplace
 
 ```bash
-/plugin marketplace add p-wegner/claude-marketplace
+/plugin marketplace add andrena-objects-ag/andrena-claude-marketplace
 ```
 
 ### 2. Browse Available Plugins
@@ -19,7 +19,7 @@
 ### 3. Install Your Desired Plugin
 
 ```bash
-/plugin install plugin-name@claude-marketplace
+/plugin install plugin-name@andrena-marketplace
 ```
 
 ## 📦 Available Plugins
@@ -28,7 +28,7 @@
 **Best for**: Research, finding current information, documentation lookup
 
 ```bash
-/plugin install gemini-web-search-agent@claude-marketplace
+/plugin install gemini-web-search-agent@andrena-marketplace
 ```
 
 **Features**:
@@ -47,7 +47,7 @@ Research recent AI developments
 **Best for**: Creating custom Skills and slash commands, extending Claude's capabilities
 
 ```bash
-/plugin install skill-command-creator@claude-marketplace
+/plugin install skill-command-creator@andrena-marketplace
 ```
 
 **Features**:
@@ -65,7 +65,7 @@ I want to organize my expertise into reusable skills
 **Best for**: Creating professional presentations, educational content, training materials
 
 ```bash
-/plugin install slidegen@claude-marketplace
+/plugin install slidegen@andrena-marketplace
 ```
 
 **Features**:
@@ -115,7 +115,7 @@ Install all three plugins for a comprehensive toolkit.
 1. **Open Claude Code**
 2. **Add Marketplace**:
    ```bash
-   /plugin marketplace add p-wegner/claude-marketplace
+   /plugin marketplace add andrena-objects-ag/andrena-claude-marketplace
    ```
 3. **Verify Installation**:
    ```bash
@@ -127,7 +127,7 @@ Install all three plugins for a comprehensive toolkit.
    ```
 5. **Install Plugin**:
    ```bash
-   /plugin install plugin-name@claude-marketplace
+   /plugin install plugin-name@andrena-marketplace
    ```
 6. **Verify Plugin**:
    ```bash
@@ -225,7 +225,7 @@ Most plugins work out-of-the-box, but some offer customization:
 ### Checking for Updates
 
 ```bash
-/plugin marketplace update claude-marketplace
+/plugin marketplace update andrena-marketplace
 ```
 
 ### Updating Plugins
@@ -242,7 +242,7 @@ Most plugins work out-of-the-box, but some offer customization:
 
 ## 🤝 Getting Support
 
-- **Issues**: [GitHub Issues](https://github.com/p-wegner/claude-marketplace/issues)
+- **Issues**: [GitHub Issues](https://github.com/andrena-objects-ag/andrena-claude-marketplace/issues)
 - **Documentation**: See individual plugin README files
 - **Community**: Check repository discussions
 
