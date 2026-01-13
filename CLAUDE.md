@@ -99,6 +99,9 @@ Claude Code plugins can contain multiple component types:
 - `docs/headless.md` - Headless mode documentation
 - `docs/output-styles.md` - Output styling guide
 
+### Best Practices
+- `.llm/best-practices/claude-code-plugins.md` - **Comprehensive best practices for Claude Code plugin development** (Skills, Commands, Agents, Hooks, CLAUDE.md, and workflow patterns based on official Anthropic guidance)
+
 
 ### Component Documentation
 - **Agent files**: Markdown descriptions in `agents/` directories
