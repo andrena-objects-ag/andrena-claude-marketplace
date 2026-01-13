@@ -4,22 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is the **Claude Marketplace** - a curated collection of high-quality plugins, agents, skills, and tools for Claude Code. The repository serves as a centralized marketplace for discovering, installing, and managing Claude Code extensions.
+This is the **Andrena Claude Marketplace** - a curated collection of high-quality plugins, agents, skills, and tools for Claude Code. The repository serves as a centralized marketplace for discovering, installing, and managing Claude Code extensions.
 
 ## Architecture
 
 ### Marketplace Structure
 
 ```
-claude-marketplace/
+andrena-claude-marketplace/
 ├── .claude-plugin/marketplace.json    # Core marketplace configuration
-├── plugins/                           # All available plugins
-│   ├── gemini-web-search-agent/       # Web search agent plugin
-│   ├── skill-command-creator/         # Skill and command creation toolkit
-│   ├── slidegen/                      # Presentation creation system
-│   ├── parallel-subagent-plugin/      # Parallel execution agent
-│   └── coding-aider/                  # Development planning tool (in progress)
-├── docs/                              # Comprehensive documentation
+├── plugins/                           # All available plugins (see marketplace.json)
+└── docs/                              # Comprehensive documentation
 ```
 
 ### Marketplace Configuration
@@ -83,14 +78,19 @@ Claude Code plugins can contain multiple component types:
 ## Documentation Structure
 
 ### Core Documentation
-- `docs/decision-guide.md` - When to use agents, skills, commands
-- `docs/marketplace.md` - Complete marketplace usage and creation guide
+- `docs/plugin-marketplaces.md` - Complete marketplace usage and creation guide
 - `docs/plugins.md` - Plugin system reference and schemas
+- `docs/plugins-reference.md` - Detailed plugin configuration reference
 - `docs/skills.md` - Skills authoring and management
-- `docs/slash_commands.md` - Custom command creation
-- `docs/subagents.md` - Subagent development and integration
+- `docs/slash-commands.md` - Custom command creation
+- `docs/sub-agents.md` - Subagent development and integration
 - `docs/hooks.md` - Event hooks and automation
-- `docs/mcp_support.md` - MCP support and configuration
+- `docs/hooks-guide.md` - Hooks quick start guide
+- `docs/mcp.md` - MCP support and configuration
+- `docs/cli-reference.md` - CLI commands reference
+- `docs/discover-plugins.md` - Plugin discovery guide
+- `docs/headless.md` - Headless mode documentation
+- `docs/output-styles.md` - Output styling guide
 
 
 ### Component Documentation
@@ -114,27 +114,58 @@ Claude Code plugins can contain multiple component types:
 ## Plugin Component Development
 
 ### Commands
-- Location: `commands/` directory
-- Format: Markdown with YAML frontmatter
-- Custom paths supported via plugin manifest
+- **Location**: `commands/` directory
+- **Format**: Markdown with YAML frontmatter
+- **Supported frontmatter**: `description`, `argument-hint`, `allowed-tools`, `model`, `context`, `agent`, `disable-model-invocation`, `hooks`
+- **Features**: Positional arguments (`$1`, `$2`), all arguments (`$ARGUMENTS`), bash integration (`!`), file references (`@`), forked contexts
+- **Custom paths** supported via plugin manifest
 
 ### Agents
-- Location: `agents/` directory
-- Format: Markdown with description and capabilities
-- Claude invokes automatically based on task context
+- **Location**: `agents/` directory
+- **Format**: Markdown with description and capabilities
+- **Invocation**: Claude invokes automatically based on task context
+- **Custom agents**: Can be used with forked contexts in Skills and Commands
 
 ### Skills
-- Location: `skills/` subdirectories
-- Required: `SKILL.md` with frontmatter
-- Optional: Supporting files, scripts, templates
-- Model-invoked based on task matching
+- **Location**: `skills/` subdirectories
+- **Required**: `SKILL.md` with frontmatter
+- **Supported frontmatter**: `name`, `description`, `allowed-tools`, `model`, `context`, `agent`, `hooks`, `user-invocable`, `disable-model-invocation`
+- **Progressive disclosure**: Keep SKILL.md under 500 lines; use reference files for detailed documentation
+- **Supporting files**: reference.md, examples.md, scripts/, templates/
+- **Invocation**: Model-invoked based on description matching, slash command (`/skill-name`), or programmatic (`Skill` tool)
+- **Subagent integration**: Custom subagents can access Skills via `skills` field
 
 ### Hooks
-- Location: `hooks/hooks.json` or inline in plugin manifest
-- Events: PreToolUse, PostToolUse, UserPromptSubmit, etc.
-- Types: command, validation, notification
+- **Location**: `hooks/hooks.json` or inline in plugin manifest
+- **Events**: PreToolUse, PostToolUse, UserPromptSubmit, Stop, SubagentStop, SessionStart
+- **Types**: `command` (bash execution), `prompt` (LLM-based evaluation)
+- **Scoping**: Can be scoped to Skills or Commands with automatic cleanup
+- **Features**: `once: true` for one-time execution, `matcher` for tool filtering
 
 ### MCP Servers
-- Location: `.mcp.json` or inline in plugin manifest
-- Format: Standard MCP server configuration
-- Auto-start when plugin enabled
+- **Location**: `.mcp.json` or inline in plugin manifest
+- **Format**: Standard MCP server configuration
+- **Auto-start**: Enabled when plugin is installed and enabled
+
+## Best Practices
+
+### Skill Development
+- **Single purpose**: Each Skill addresses one specific capability
+- **Clear descriptions**: Include what the Skill does AND when to use it (max 1024 chars)
+- **Progressive disclosure**: Keep SKILL.md focused; reference detailed docs in separate files
+- **Tool restrictions**: Use `allowed-tools` to limit scope when appropriate
+- **Forked contexts**: Use `context: fork` for complex multi-step operations
+- **Visibility control**: Use `user-invocable: false` for internal Skills
+
+### Command Development
+- **Intuitive naming**: Command names should clearly indicate functionality
+- **Argument patterns**: Use `$1`, `$2` for structured input; `$ARGUMENTS` for flexible input
+- **Tool permissions**: Be specific with `allowed-tools` for security
+- **Hooks integration**: Use scoped hooks for validation or automation
+- **Forked execution**: Use `context: fork` to isolate complex operations
+
+### Plugin Architecture
+- **Component organization**: Group related components logically
+- **Manifest strategy**: Choose between `plugin.json` (simple) or `marketplace.json` definitions (complex)
+- **Version management**: Update versions in both plugin manifest and marketplace.json
+- **Documentation**: Maintain comprehensive README.md for each plugin
