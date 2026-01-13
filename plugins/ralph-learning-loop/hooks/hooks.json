@@ -1,22 +1,38 @@
 {
   "hooks": {
-    "PreToolUse": {
-      "type": "prompt",
-      "prompt": "You are in a Ralph Learning Loop. Before executing this tool, consider:\n\n1. Is this tool call aligned with the current loop task?\n2. What learning might this produce?\n3. Is the loop making progress or spinning?\n\nIf the loop appears stuck (repeated similar failures), output a summary of blockers and suggest next steps.\n\nCurrent iteration: {{iteration}}\nMax iterations: {{max_iterations}}\nNext learning checkpoint: {{next_learning_checkpoint}}",
-      "once": false,
-      "matcher": {
-        "tool": "Bash"
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "You are in a Ralph Learning Loop. Before executing this tool, consider:\n\n1. Is this tool call aligned with the current loop task?\n2. What learning might this produce?\n3. Is the loop making progress or spinning?\n\nIf the loop appears stuck (repeated similar failures), output a summary of blockers and suggest next steps.\n\nCurrent iteration: {{iteration}}\nMax iterations: {{max_iterations}}\nNext learning checkpoint: {{next_learning_checkpoint}}",
+            "once": false
+          }
+        ]
       }
-    },
-    "PostToolUse": {
-      "type": "prompt",
-      "prompt": "After this tool use, assess loop progress:\n\n1. Did this move the task closer to completion?\n2. What was learned from this result?\n3. Should the strategy change based on this outcome?\n\nIf approaching learning checkpoint, prepare insights for capture:\n- Approaches tried since last checkpoint\n- Failures encountered and their causes\n- Successes and breakthrough patterns\n- Gotchas and edge cases discovered\n\nCurrent iteration: {{iteration}}",
-      "once": false
-    },
-    "Stop": {
-      "type": "command",
-      "command": "exit 2",
-      "once": true
-    }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "After this tool use, assess loop progress:\n\n1. Did this move the task closer to completion?\n2. What was learned from this result?\n3. Should the strategy change based on this outcome?\n\nIf approaching learning checkpoint, prepare insights for capture:\n- Approaches tried since last checkpoint\n- Failures encountered and their causes\n- Successes and breakthrough patterns\n- Gotchas and edge cases discovered\n\nCurrent iteration: {{iteration}}",
+            "once": false
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "exit 2",
+            "once": true
+          }
+        ]
+      }
+    ]
   }
 }

@@ -109,25 +109,41 @@ ensuring they work regardless of Claude's current directory:
 * Plugin hooks use the `${CLAUDE_PLUGIN_ROOT}` environment variable to reference plugin files
 
 <Warning>
-  When defining hooks in an external `hooks/hooks.json` file (not inline in the plugin manifest), the hooks must be wrapped in a `"hooks"` object. Without this wrapper, you'll get the error: "Invalid input: expected record, received undefined".
+  When defining hooks in an external `hooks/hooks.json` file (not inline in the plugin manifest), you must use the complete array-based structure with the `"hooks"` wrapper object.
 
   **Correct structure for external hooks.json:**
   ```json
   {
     "hooks": {
-      "PreToolUse": [ ... ],
-      "PostToolUse": [ ... ]
+      "PreToolUse": [
+        {
+          "matcher": "Bash",
+          "hooks": [
+            {
+              "type": "prompt",
+              "prompt": "Your prompt here"
+            }
+          ]
+        }
+      ],
+      "Stop": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "exit 0"
+            }
+          ]
+        }
+      ]
     }
   }
   ```
 
-  **Incorrect structure (missing wrapper):**
-  ```json
-  {
-    "PreToolUse": [ ... ],
-    "PostToolUse": [ ... ]
-  }
-  ```
+  **Common mistakes:**
+  - Missing the `"hooks"` wrapper object → "Invalid input: expected record, received undefined"
+  - Not using array format for events → "Invalid input: expected array, received object"
+  - Placing hook properties directly on the event instead of inside the matcher's hooks array
 </Warning>
 
 **Example plugin hook configuration**:
