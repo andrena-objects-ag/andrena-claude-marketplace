@@ -1,12 +1,8 @@
 ---
 description: Extract key learnings from the current conversation and update project documentation
-status: IMPLEMENTED
-implementation: plugins/documentation-learner/commands/learn.md
 ---
 
 # Learn from Conversation
-
-**✅ IMPLEMENTED**: This idea has been implemented as the `/learn` command in the `documentation-learner` plugin.
 
 Analyze the current conversation and extract key learnings, especially regarding:
 

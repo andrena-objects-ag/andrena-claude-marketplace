@@ -1,0 +1,16 @@
+{
+  "name": "documentation-learner",
+  "description": "Extract key learnings from conversations and automatically update project documentation with workflows, patterns, and best practices",
+  "version": "1.0.0",
+  "author": {
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
+  },
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "license": "MIT",
+  "keywords": ["documentation", "learning", "workflows", "knowledge-capture", "automation"],
+  "commands": [
+    "./commands/learn.md"
+  ]
+}
