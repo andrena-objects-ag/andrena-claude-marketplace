@@ -1,0 +1,22 @@
+{
+  "name": "ralph-learning-loop",
+  "version": "1.0.0",
+  "description": "Autonomous iteration loop with automatic learning capture. Combines Ralph Wiggum's persistent iteration with documentation-learner's knowledge capture, creating a reasonable loop that learns from each cycle.",
+  "author": {
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "keywords": ["ralph", "wiggum", "loop", "learning", "iteration", "autonomous", "documentation"],
+  "category": "productivity",
+  "tags": ["ralph", "learning", "iteration", "autonomous", "documentation", "hooks"],
+  "commands": [
+    "./commands/ralph-learn-loop.md"
+  ],
+  "skills": [
+    "./skills/loop-learner"
+  ],
+  "hooks": "./hooks/hooks.json"
+}
