@@ -34,25 +34,37 @@ After a productive conversation where you've discovered new workflows or solved 
 ```
 
 Claude will:
-1. Review the conversation for actionable learnings
-2. Categorize learnings by topic (backend, frontend, testing, CI/CD, etc.)
-3. Update appropriate documentation files (CLAUDE.md, README files, .llm/*.md files)
-4. Present a summary of what was captured and where
+1. **Analyze your project structure** to understand existing documentation organization
+2. **Review the conversation** for actionable learnings
+3. **Determine placement** - either following existing structure or asking you where to document
+4. **Update documentation files** (CLAUDE.md, README files, .llm/*.md files)
+5. **Present a summary** of what was captured and where
 
 ## Documentation Organization
 
-The `/learn` command intelligently routes learnings to the appropriate files:
+The `/learn` command adapts to your project's documentation structure:
 
-| Learning Type | Destination |
-|--------------|-------------|
-| General workflows | `CLAUDE.md` |
-| Backend-specific | `backend/README.md` or `backend/docs/` |
-| Frontend-specific | `frontend/CLAUDE.md` |
-| E2E testing | `frontend/apps/identity-e2e/.llm/` |
-| Pipeline/CI/CD | `.llm/pipeline-management.md` |
-| Azure DevOps | `.llm/backlog-management.md` or `.llm/commands.md` |
-| Deployment | `.llm/deployment.md` |
-| Specialized topics | Appropriate `.llm/*.md` file |
+### **If documentation structure exists:**
+- Follows existing conventions and file organization
+- Adds learnings to appropriate existing files
+- Maintains consistency with current structure
+
+### **If structure is unclear:**
+- Uses AskUserQuestion to ask where to document learnings
+- Suggests creating `.llm/` directory for organized topic-based documentation
+- Provides options with clear descriptions of what goes where
+
+### **Recommended structure** (suggested if project lacks organization):
+```
+project-root/
+├── CLAUDE.md                    # Main documentation hub
+├── README.md                    # Project overview
+└── .llm/                        # Detailed topic-specific docs
+    ├── workflows.md
+    ├── deployment.md
+    ├── testing.md
+    └── [topic].md
+```
 
 ## Best Practices
 
@@ -82,47 +94,56 @@ The command focuses on:
 
 ## Examples
 
-### Example 1: Capturing a Deployment Workflow
+### Example 1: Project with Existing Structure
 
-After successfully deploying an application with a multi-step process:
-
-```
-/learn
-```
-
-**Result**: Updates `.llm/deployment.md` with:
-- Step-by-step deployment commands
-- Environment configuration requirements
-- Common deployment issues and solutions
-- Rollback procedures
-
-### Example 2: Documenting a Testing Pattern
-
-After discovering how to test a complex component:
+After successfully deploying an application:
 
 ```
 /learn
 ```
 
-**Result**: Updates testing documentation with:
-- Test setup requirements
-- Mocking strategies used
-- Assertion patterns
-- Edge cases to consider
+**Claude's process:**
+1. Reads CLAUDE.md, finds references to `.llm/deployment.md`
+2. Identifies deployment workflow in conversation
+3. Updates `.llm/deployment.md` with step-by-step commands and gotchas
+4. Reports what was added
 
-### Example 3: Capturing Azure DevOps Workflow
+### Example 2: Project Without Clear Structure
 
-After learning how to manage backlog items via API:
+After discovering a testing pattern:
 
 ```
 /learn
 ```
 
-**Result**: Updates `.llm/backlog-management.md` with:
-- API authentication setup
-- Query examples for fetching work items
-- Update patterns for modifying items
-- Common API gotchas
+**Claude's process:**
+1. Checks for CLAUDE.md - doesn't exist
+2. Identifies testing learnings
+3. Asks: "Where should I document the testing workflow?"
+   - Option A: Create CLAUDE.md and add there
+   - Option B: Create .llm/ directory with testing.md (Recommended)
+   - Option C: Add to README.md
+4. User selects Option B
+5. Creates `.llm/testing.md` with the patterns
+6. Suggests adding reference in CLAUDE.md
+
+### Example 3: Multiple Learning Types
+
+After a session with deployment, testing, and API learnings:
+
+```
+/learn
+```
+
+**Claude's process:**
+1. Analyzes project structure - finds CLAUDE.md but no .llm/ directory
+2. Identifies 3 different learning topics
+3. Asks: "This project doesn't have a .llm/ directory. How should we organize?"
+   - Option A: Create .llm/ with topic-specific files (Recommended)
+   - Option B: Add all to CLAUDE.md with sections
+4. User selects Option A
+5. Creates `.llm/deployment.md`, `.llm/testing.md`, `.llm/api-integration.md`
+6. Updates CLAUDE.md with references to new files
 
 ## Output
 
@@ -144,9 +165,13 @@ The `/learn` command provides:
 
 The command follows these principles:
 
+- **Analyze before acting**: Always examine project structure before making changes
+- **Ask when unclear**: Uses AskUserQuestion when documentation placement is ambiguous
+- **Suggest good structure**: Recommends .llm/ directory for organized documentation
+- **Adapt to existing patterns**: Follows project's current documentation conventions
 - **Concrete over abstract**: Uses specific commands, file paths, and code snippets
 - **Actionable over descriptive**: Focuses on "how to" rather than "what is"
-- **Organized over scattered**: Maintains consistent documentation structure
+- **Progressive disclosure**: Overview in CLAUDE.md, details in referenced files
 - **Referenced over duplicated**: Links to existing docs rather than repeating content
 - **LLM-optimized**: Documentation is clear for both future LLM consumption and human developers
 
@@ -171,7 +196,14 @@ MIT License - see LICENSE file for details.
 
 ## Version History
 
+- **v1.1.0**: Generic documentation structure support
+  - Project structure analysis before acting
+  - AskUserQuestion integration for unclear categorization
+  - Recommended .llm/ directory structure
+  - Adapts to existing documentation patterns
+  - More flexible and project-agnostic approach
+
 - **v1.0.0**: Initial release with `/learn` command
   - Conversation analysis and learning extraction
-  - Intelligent documentation categorization
+  - Documentation categorization
   - Automatic file updates with rationale

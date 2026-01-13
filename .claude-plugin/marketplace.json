@@ -179,7 +179,7 @@
       "name": "documentation-learner",
       "source": "./plugins/documentation-learner",
       "description": "Extract key learnings from conversations and automatically update project documentation with workflows, patterns, and best practices",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Peter Wegner",
         "email": "peter.wegner@andrena.de"
