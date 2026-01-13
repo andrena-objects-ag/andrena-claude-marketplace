@@ -1,17 +1,17 @@
-# Claude Marketplace
+# Andrena Claude Marketplace
 
 > A curated collection of high-quality plugins, agents, skills, and tools for Claude Code
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-blue)](https://claude.com/claude-code)
 
-## 🚀 Quick Start
+## Quick Start
 
 Add this marketplace to Claude Code and install plugins:
 
 ```bash
-/plugin marketplace add p-wegner/claude-marketplace
-/plugin list  # See all available plugins
+/plugin marketplace add andrena-objects-ag/andrena-claude-marketplace
+/plugin list
 ```
 
 ## 📦 Available Plugins
@@ -64,136 +64,65 @@ Generate structured coding-aider plans that mirror the IntelliJ coding-aider plu
 ### 🚀 [PRD Parallel Execution](./plugins/prd-parallel-execution/)
 **Type**: Plugin with Skill & Command | **Category**: Development & Automation
 
-Convert PRDs into contract-first, parallel implementation plans and execute them with automated subagent orchestration. Reduces development time by 40-60% through strategic task organization.
+Convert PRDs into contract-first, parallel implementation plans and execute them with automated subagent orchestration.
 
 ```bash
 /plugin install prd-parallel-execution@claude-marketplace
 ```
 
-## 📋 Plugin Categories
+### 🎓 [Documentation Learner](./plugins/documentation-learner/)
+**Type**: Plugin with Command | **Category**: Productivity
 
-| Category | Plugins | Description |
-|----------|---------|-------------|
-| 🔍 **Search & Research** | 1 | Web search and information retrieval |
-| 🛠️ **Productivity & Development** | 1 | Skill/command creation tools |
-| ⚡ **Productivity & Automation** | 1 | Parallel task execution and background processing |
-| 📊 **Presentations** | 1 | Presentation creation and automation |
-| 💻 **Development & Planning** | 2 | Structured development planning and PRD execution automation |
-| 📈 **Total** | **6** | **Comprehensive toolkit** |
+Extract key learnings from conversations and automatically update project documentation. Includes `--analyze-docs` mode for analyzing documentation structure.
 
-## 🎯 What Each Plugin Does
-
-### 🔍 Gemini Web Search Agent
-- **Perfect for**: Finding current information, web research, documentation lookup
-- **Features**: Specialized search queries, real-time information retrieval
-- **Use when**: You need up-to-date web information or want to research specific topics
-
-### 🛠️ Skill & Command Creator
-- **Perfect for**: Creating reusable Skills and automating frequent tasks
-- **Features**:
-  - **Skill Creator**: Build Agent Skills with proper structure and validation
-  - **Command Creator**: Create custom slash commands with arguments and advanced features
-- **Use when**: You want to extend Claude's capabilities or automate workflows
-
-### 📊 SlideGen
-- **Perfect for**: Creating professional presentations with AI assistance
-- **Features**:
-  - Multiple specialized agents (architecture, research, content, formatting)
-  - Template customization and branding
-  - Support for Marp and Slidev formats
-  - Research-backed content generation
-- **Use when**: You need to create presentations, slides, or visual content
-
-### ⚡ Parallel Subagent
-- **Perfect for**: Running background tasks without blocking main conversation
-- **Features**:
-  - **Parallel Worker Agent**: Specialized subagent for non-blocking background tasks
-  - Independent execution context separate from main conversation
-  - Background research, file processing, and code analysis
-  - Test execution and validation without interrupting workflow
-  - Automatic invocation for parallelizable tasks
-- **Use when**: You want to run research, analysis, or processing tasks while continuing with main development work
-
-### 💻 Coding Aider
-- **Perfect for**: Creating structured development plans and systematic project management
-- **Features**:
-  - **Plan Generator Skill**: Creates coding-aider style plans with overview, goals, and implementation checklists
-  - Structured file generation (plan, checklist, context files)
-  - Atomic task breakdown for systematic development
-  - File context management with read/write permissions
-  - IntelliJ coding-aider plugin compatibility
-- **Use when**: You need structured development planning, want to organize complex projects, or prefer the coding-aider planning methodology
-
-### 🚀 PRD Parallel Execution
-- **Perfect for**: Converting PRDs into executable implementation plans with automated parallel development
-- **Features**:
-  - **PRD-to-Implementation-Plan Skill**: Converts PRDs into contract-first, parallel implementation plans
-  - **Execute PRD Plan Command**: Orchestrates parallel subagent execution across development streams
-  - 3-phase execution strategy (Contracts → Implementation → Integration)
-  - 40-60% development time reduction through strategic parallelization
-  - Contract-first development with API specs and mock services
-  - Automated subagent orchestration with dependency management
-- **Use when**: You have PRDs that need implementation, want to accelerate development with parallel execution, or prefer contract-first development methodology
-
-## 🏗️ Repository Structure
-
-```
-claude-marketplace/
-├── 📄 README.md                 # This file - overview and quick start
-├── 📁 plugins/                  # All available plugins
-│   ├── 🔍 gemini-web-search-agent/
-│   ├── 🛠️ skill-command-creator/
-│   ├── 📊 slidegen/
-│   ├── ⚡ parallel-subagent-plugin/
-│   ├── 💻 coding-aider/
-│   └── 🚀 prd-parallel-execution/
-├── 📁 docs/                     # Detailed documentation
-│   ├── skills.md               # Agent Skills guide
-│   ├── marketplace.md          # Marketplace usage guide
-│   └── ...                     # Additional docs
-├── 📁 .claude-plugin/           # Marketplace configuration
-│   └── marketplace.json        # Plugin definitions
-└── 📁 marketplace/              # Legacy structure (being phased out)
-    └── CATALOG.md              # Detailed catalog
+```bash
+/plugin install documentation-learner@claude-marketplace
 ```
 
-## 📚 Documentation
+### 🎲 [Ralph Learning Loop](./plugins/ralph-learning-loop/)
+**Type**: Plugin with Skill, Command & Hooks | **Category**: Productivity
 
-- **[Skills Guide](./docs/skills.md)** - Learn about Agent Skills
-- **[Marketplace Guide](./docs/marketplace.md)** - Understanding marketplaces
-- **[Slash Commands](./docs/slash_commands.md)** - Custom command creation
-- **[Plugins Reference](./docs/plugins.md)** - Complete plugin documentation
+Autonomous iteration loop with automatic learning capture. Combines persistent iteration with knowledge capture.
 
-## 🤝 Contributing
+```bash
+/plugin install ralph-learning-loop@claude-marketplace
+```
 
-We welcome high-quality plugins that enhance the Claude Code experience!
+### 🛡️ [Adversarial Checkpoint](./plugins/adversarial-checkpoint-plugin/)
+**Type**: Plugin with Agent, Skill, Command & Hooks | **Category**: Development
 
-### Requirements for Plugin Submission:
-1. **Quality**: Well-documented, thoroughly tested, and follows best practices
-2. **Utility**: Solves real problems and provides clear value to users
-3. **Documentation**: Comprehensive README with installation and usage instructions
-4. **Compatibility**: Works with current Claude Code version and follows plugin standards
+Adversarial checkpoint validation system with resumable challenger agent for quality assurance.
 
-### Submission Process:
-1. Fork this repository
-2. Add your plugin to the `plugins/` directory
-3. Update `.claude-plugin/marketplace.json` with your plugin details
-4. Submit a pull request with a clear description of your plugin
+```bash
+/plugin install adversarial-checkpoint-plugin@claude-marketplace
+```
 
-## 📄 License
+## Documentation
 
-This marketplace is licensed under the MIT License. Individual plugins may have their own licenses.
+- **[Plugins Guide](./docs/plugins.md)** - Plugin creation and usage
+- **[Skills Guide](./docs/skills.md)** - Agent Skills authoring
+- **[Slash Commands](./docs/slash-commands.md)** - Custom command creation
+- **[Hooks Guide](./docs/hooks-guide.md)** - Event hooks and automation
+- **[MCP](./docs/mcp.md)** - MCP server integration
 
-## 🔗 Links
+## Contributing
 
-- **Claude Code**: https://claude.com/claude-code
-- **Repository**: https://github.com/p-wegner/claude-marketplace
-- **Issues**: https://github.com/p-wegner/claude-marketplace/issues
+We welcome high-quality plugins that enhance the Claude Code experience.
+
+**Requirements**: Well-documented, tested, compatible with current Claude Code version.
+
+**Process**: Fork, add to `plugins/`, update `.claude-plugin/marketplace.json`, submit PR.
+
+## License
+
+MIT License. Individual plugins may have their own licenses.
+
+## Links
+
+- **Repository**: https://github.com/andrena-objects-ag/andrena-claude-marketplace
+- **Issues**: https://github.com/andrena-objects-ag/andrena-claude-marketplace/issues
 
 ---
 
-**Last Updated**: 2025-10-26
-**Marketplace Version**: 1.0.2
-**Total Plugins**: 6
+**Marketplace Version**: 1.0.2 | **Plugins**: 10
 
-> 💡 **Tip**: Start with the Skill & Command Creator if you're new to plugins - it will help you understand how Skills and commands work! For structured development planning, try the Coding Aider plugin. For PRD-driven development, use the PRD Parallel Execution plugin.

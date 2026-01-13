@@ -1,8 +1,23 @@
 ---
-description: Extract key learnings from the current conversation and update project documentation
+description: Extract key learnings from conversations or analyze documentation structure. Usage: /learn [--analyze-docs] [topic]
+argument-hint: [--analyze-docs] [topic]
 ---
 
 # Learn from Conversation
+
+This command has two modes:
+
+1. **Default mode**: Analyze the current conversation and extract key learnings
+2. **`--analyze-docs` mode**: Analyze existing documentation structure and identify improvement opportunities
+
+## Mode Detection
+
+- If `$ARGUMENTS` contains `--analyze-docs`: Run documentation analysis mode
+- Otherwise: Run default learning extraction mode
+
+---
+
+# Default Mode: Extract Learnings
 
 Analyze the current conversation and extract key learnings, especially regarding:
 
@@ -101,3 +116,138 @@ project-root/
 - Clear namespace for LLM-optimized documentation
 
 Begin by reading CLAUDE.md (if it exists) and exploring the project structure to understand current documentation organization, then analyze this conversation for learnings.
+
+---
+
+# --analyze-docs Mode: Documentation Structure Analysis
+
+When `$ARGUMENTS` contains `--analyze-docs`, analyze the existing documentation structure and identify improvement opportunities.
+
+## Your Task
+
+1. **Scan documentation locations**:
+   - Check for `docs/` directory
+   - Check for `CLAUDE.md` in project root
+   - Check for `README.md` files
+   - Check for `.llm/` directory
+   - Look for markdown files in project root
+
+2. **Analyze documentation structure**:
+   - List all documentation files found
+   - Count lines in each file (identify large files >300 lines)
+   - Read file headers/sections to understand topics covered
+   - Identify potential duplicate files (similar names or topics)
+
+3. **Detect issues**:
+   - **Duplicates**: Files with similar names (e.g., `sub-agents.md` and `subagents.md`) or overlapping content
+   - **Large files**: Files that could benefit from splitting (>300 lines)
+   - **Content overlap**: Files covering similar topics that could be consolidated
+   - **Missing structure**: Lack of clear organization (no CLAUDE.md, scattered docs)
+
+4. **Identify modularization opportunities**:
+   - Large files that could be split into topic-specific modules
+   - Sections that could become reusable skills or commands
+   - Patterns/procedures that could be extracted as standalone components
+
+5. **Generate actionable recommendations**:
+   - For each issue found, provide specific remediation steps
+   - Suggest file merges, splits, or reorganizations
+   - Identify opportunities to create skills/commands from documentation sections
+
+6. **Present analysis report** with:
+   - Summary of documentation structure
+   - List of issues found (duplicates, large files, overlaps)
+   - Prioritized recommendations for improvement
+   - Opportunities for skill/command extraction
+   - Suggested new documentation structure
+
+## Analysis Output Format
+
+Present the analysis in this structure:
+
+```
+# Documentation Structure Analysis
+
+## Overview
+- Total documentation files: X
+- Documentation locations: [list of directories]
+- Total lines of documentation: X
+
+## Issues Found
+
+### Duplicates
+- [file1] and [file2]: Similar names/purpose - consider merging
+- [description of overlap]
+
+### Large Files (>300 lines)
+- [file]: X lines - could be split into:
+  - [module1]: [topic description]
+  - [module2]: [topic description]
+
+### Content Overlap
+- [file1] and [file2] both cover [topic] - consider consolidating
+
+## Modularization Opportunities
+
+### Potential Skills to Create
+From [file]: "[section title]" could become a skill for [purpose]
+- **Skill name**: [suggested-name]
+- **Purpose**: [what the skill would do]
+- **Content source**: [file:line range]
+
+### Potential Commands to Create
+From [file]: "[procedure]" could become a command for [task]
+- **Command name**: /command-name
+- **Purpose**: [what the command would do]
+- **Content source**: [file:line range]
+
+## Recommendations
+
+1. [Priority action item]
+2. [Next priority action item]
+3. [Additional suggestion]
+
+## Suggested Structure
+
+[Proposed directory/file organization]
+```
+
+## Important Guidelines for Analysis Mode
+
+- **Thorough scanning**: Check all common documentation locations
+- **Concrete recommendations**: Provide specific file names and line numbers
+- **Prioritized actions**: Rank recommendations by impact/effort
+- **Skill/command focus**: Highlight opportunities for automation
+- **Preserve context**: Explain why changes would improve organization
+- **Respect existing patterns**: Note good patterns to maintain
+
+## Examples
+
+### Example 1: Duplicate Detection
+```
+# Issues Found - Duplicates
+- sub-agents.md and subagents.md: These appear to serve the same purpose
+- Recommendation: Consolidate into single file, remove duplicate
+```
+
+### Example 2: Large File Splitting
+```
+# Large Files
+- plugins.md: 413 lines - could be split into:
+  - plugins/quickstart.md (lines 1-170): Getting started guide
+  - plugins/structure.md (lines 172-257): Directory structure
+  - plugins/development.md (lines 259-413): Advanced development
+```
+
+### Example 3: Skill Extraction
+```
+# Modularization Opportunities - Skills
+From plugins.md: "Convert existing configurations to plugins" section
+- **Skill name**: plugin-migrator
+- **Purpose**: Automatically migrate .claude/ configurations to plugin format
+- **Content source**: plugins.md:303-388
+```
+
+When `--analyze-docs` is detected, skip the default learning extraction and perform this analysis instead.
+
+
