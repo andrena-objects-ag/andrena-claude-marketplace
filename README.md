@@ -88,6 +88,15 @@ Autonomous iteration loop with automatic learning capture. Combines persistent i
 /plugin install ralph-learning-loop@claude-marketplace
 ```
 
+### 📚 [Best Practices Advisor](./plugins/best-practices-advisor/)
+**Type**: Plugin with Skill | **Category**: Productivity & Documentation
+
+Automatically discovers technologies and versions in any project, researches current best practices from authoritative sources, and extends local documentation with version-specific guidelines. Works across all tech stacks (Node.js, .NET, Java, Python, Go, Ruby, PHP, etc.).
+
+```bash
+/plugin install best-practices-advisor@claude-marketplace
+```
+
 ### 🛡️ [Adversarial Checkpoint](./plugins/adversarial-checkpoint-plugin/)
 **Type**: Plugin with Agent, Skill, Command & Hooks | **Category**: Development
 
@@ -124,5 +133,5 @@ MIT License. Individual plugins may have their own licenses.
 
 ---
 
-**Marketplace Version**: 1.0.2 | **Plugins**: 10
+**Marketplace Version**: 1.0.2 | **Plugins**: 11
 

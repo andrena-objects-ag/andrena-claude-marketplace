@@ -1,0 +1,16 @@
+{
+  "name": "best-practices-advisor",
+  "version": "1.0.0",
+  "description": "Automatically discovers technologies and versions in any project, researches current best practices from authoritative sources, and extends local documentation with version-specific guidelines. Works across all tech stacks.",
+  "author": {
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "keywords": ["best-practices", "documentation", "learning", "technology", "version-aware", "research"],
+  "skills": [
+    "./skills/best-practices-finder"
+  ]
+}
