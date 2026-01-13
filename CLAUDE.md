@@ -72,8 +72,15 @@ Claude Code plugins can contain multiple component types:
 ### Plugin Versioning
 
 - **Semantic versioning**: Use `MAJOR.MINOR.PATCH` format
-- **Version updates**: Update both plugin manifest and marketplace.json
-- **Documentation**: Update plugin READMEs with version changes
+- **Version updates required**: ALWAYS bump version when making ANY changes to a plugin
+  - Bug fixes (e.g., fixing hooks.json structure) → Increment PATCH (1.0.0 → 1.0.1)
+  - New features or enhancements → Increment MINOR (1.0.1 → 1.1.0)
+  - Breaking changes → Increment MAJOR (1.1.0 → 2.0.0)
+- **Two files to update**:
+  1. `plugins/[plugin-name]/plugin.json` - Update `version` field
+  2. `.claude-plugin/marketplace.json` - Update `version` field in plugin entry
+- **Commit message**: Include version bump in commit message (e.g., "Fix hooks.json structure and bump to v1.0.1")
+- **Documentation**: Update plugin READMEs with version changes and changelog
 
 ## Documentation Structure
 
@@ -141,6 +148,7 @@ Claude Code plugins can contain multiple component types:
 - **Types**: `command` (bash execution), `prompt` (LLM-based evaluation)
 - **Scoping**: Can be scoped to Skills or Commands with automatic cleanup
 - **Features**: `once: true` for one-time execution, `matcher` for tool filtering
+- **Important**: External `hooks/hooks.json` files require specific structure - see [hooks.md](./docs/hooks.md#plugin-hooks) for details
 
 ### MCP Servers
 - **Location**: `.mcp.json` or inline in plugin manifest

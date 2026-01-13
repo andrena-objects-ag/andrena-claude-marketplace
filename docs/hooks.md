@@ -108,6 +108,28 @@ ensuring they work regardless of Claude's current directory:
 * Multiple hooks from different sources can respond to the same event
 * Plugin hooks use the `${CLAUDE_PLUGIN_ROOT}` environment variable to reference plugin files
 
+<Warning>
+  When defining hooks in an external `hooks/hooks.json` file (not inline in the plugin manifest), the hooks must be wrapped in a `"hooks"` object. Without this wrapper, you'll get the error: "Invalid input: expected record, received undefined".
+
+  **Correct structure for external hooks.json:**
+  ```json
+  {
+    "hooks": {
+      "PreToolUse": [ ... ],
+      "PostToolUse": [ ... ]
+    }
+  }
+  ```
+
+  **Incorrect structure (missing wrapper):**
+  ```json
+  {
+    "PreToolUse": [ ... ],
+    "PostToolUse": [ ... ]
+  }
+  ```
+</Warning>
+
 **Example plugin hook configuration**:
 
 ```json  theme={null}
