@@ -2,6 +2,7 @@
 description: Extract key learnings from the current conversation and update project documentation
 status: IMPLEMENTED
 implementation: plugins/documentation-learner/commands/learn.md
+date-implemented: 2026-01-13
 ---
 
 # Learn from Conversation
