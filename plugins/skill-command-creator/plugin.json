@@ -1,7 +1,7 @@
 {
   "name": "skill-command-creator",
   "description": "A comprehensive toolkit for creating Agent Skills and slash commands with templates, validation, and best practices guidance",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Peter Wegner",
     "email": "peter.wegner@andrena.de"
