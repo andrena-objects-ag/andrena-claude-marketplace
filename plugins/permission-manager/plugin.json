@@ -6,11 +6,10 @@
     "name": "Peter Wegner",
     "email": "peter.wegner@andrena.de"
   },
-  "repository": "andrena-objects-ag/andrena-claude-marketplace",
   "license": "MIT",
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
   "keywords": ["permissions", "settings", "global", "local", "management", "utilities"],
-  "category": "utilities",
-  "tags": ["permissions", "settings", "cli", "management"],
   "skills": [
     "./skills/permission-manager"
   ]
