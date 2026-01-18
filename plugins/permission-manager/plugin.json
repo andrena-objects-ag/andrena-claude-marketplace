@@ -1,0 +1,17 @@
+{
+  "name": "permission-manager",
+  "version": "1.0.0",
+  "description": "Manage Claude Code permissions across local and global scopes with promotion, comparison, and sync capabilities",
+  "author": {
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
+  },
+  "repository": "andrena-objects-ag/andrena-claude-marketplace",
+  "license": "MIT",
+  "keywords": ["permissions", "settings", "global", "local", "management", "utilities"],
+  "category": "utilities",
+  "tags": ["permissions", "settings", "cli", "management"],
+  "skills": [
+    "./skills/permission-manager"
+  ]
+}

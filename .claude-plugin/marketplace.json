@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "A curated marketplace for Claude Code agents, plugins, skills, and styles",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -234,6 +234,23 @@
       "skills": [
         "./skills/best-practices-finder"
       ],
+      "strict": false
+    },
+    {
+      "name": "permission-manager",
+      "source": "./plugins/permission-manager",
+      "description": "Manage Claude Code permissions across local and global scopes with promotion, comparison, and sync capabilities",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
+      },
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "license": "MIT",
+      "keywords": ["permissions", "settings", "global", "local", "management", "utilities"],
+      "category": "utilities",
+      "tags": ["permissions", "settings", "cli", "management"],
       "strict": false
     }
   ]

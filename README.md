@@ -88,6 +88,15 @@ Autonomous iteration loop with automatic learning capture. Combines persistent i
 /plugin install ralph-learning-loop@claude-marketplace
 ```
 
+### 🔐 [Permission Manager](./plugins/permission-manager/)
+**Type**: Plugin with Skill | **Category**: Utilities
+
+Manage Claude Code permissions across local and global scopes with promotion, comparison, and sync capabilities.
+
+```bash
+/plugin install permission-manager@claude-marketplace
+```
+
 ### 📚 [Best Practices Advisor](./plugins/best-practices-advisor/)
 **Type**: Plugin with Skill | **Category**: Productivity & Documentation
 
@@ -133,5 +142,5 @@ MIT License. Individual plugins may have their own licenses.
 
 ---
 
-**Marketplace Version**: 1.0.2 | **Plugins**: 11
+**Marketplace Version**: 1.0.3 | **Plugins**: 11
 
