@@ -98,10 +98,11 @@ Claude Code plugins can contain multiple component types:
 - `docs/discover-plugins.md` - Plugin discovery guide
 - `docs/headless.md` - Headless mode documentation
 - `docs/output-styles.md` - Output styling guide
+- `docs/decision-guide.md` - Decision-making guide for plugin architecture
+- `docs/subagents.md` - Subagent reference (alias for sub-agents.md)
 
 ### Best Practices
 - `.llm/best-practices/claude-code-plugins.md` - **Comprehensive best practices for Claude Code plugin development** (Skills, Commands, Agents, Hooks, CLAUDE.md, and workflow patterns based on official Anthropic guidance)
-
 
 ### Component Documentation
 - **Agent files**: Markdown descriptions in `agents/` directories
@@ -119,7 +120,40 @@ Claude Code plugins can contain multiple component types:
 - Defined in `.claude-plugin/marketplace.json` metadata
 - Increment when adding/removing plugins or breaking changes
 
+## Documentation Tracking
 
+> Last reviewed: **2026-01-19**
+
+The following documentation files were reviewed against Claude Code v2.1.2 (Jan 2026) changelog and confirmed to be current:
+
+| Documentation File | Last Reviewed | Status | Notes |
+|--------------------|---------------|--------|-------|
+| `docs/cli-reference.md` | 2026-01-19 | ✅ Current | Covers latest CLI commands |
+| `docs/decision-guide.md` | 2026-01-19 | ✅ Current | Architecture decision guidance |
+| `docs/discover-plugins.md` | 2026-01-19 | ✅ Current | Plugin discovery workflow |
+| `docs/headless.md` | 2026-01-19 | ✅ Current | Headless mode documentation |
+| `docs/hooks-guide.md` | 2026-01-19 | ✅ Current | Hooks quickstart guide |
+| `docs/hooks.md` | 2026-01-19 | ✅ Current | Includes v2.0.43+ hook features (permissionMode, tool_use_id, SubagentStart) |
+| `docs/mcp.md` | 2026-01-19 | ✅ Current | MCP server integration |
+| `docs/plugin-marketplaces.md` | 2026-01-19 | ✅ Current | Marketplace creation and usage |
+| `docs/plugins-reference.md` | 2026-01-19 | ✅ Current | Technical plugin specifications |
+| `docs/plugins.md` | 2026-01-19 | ✅ Current | Plugin system (v2.0.12+) |
+| `docs/output-styles.md` | 2026-01-19 | ✅ Current | Output styling (deprecated but documented) |
+| `docs/slash-commands.md` | 2026-01-19 | ✅ Current | Custom slash commands |
+| `docs/skills.md` | 2026-01-19 | ✅ Current | Agent Skills (v2.0.20+) |
+| `docs/sub-agents.md` | 2026-01-19 | ✅ Current | Subagent development |
+| `docs/subagents.md` | 2026-01-19 | ✅ Current | Alias for sub-agents.md |
+
+### Claude Code Version Compatibility
+
+- **Minimum supported version**: v2.0.12 (Plugin System release)
+- **Tested against**: v2.1.2 (January 2026)
+- **Key features supported**:
+  - Plugin system (v2.0.12+)
+  - Skills (v2.0.20+)
+  - Advanced hooks with permissionMode and tool_use_id (v2.0.43+)
+  - Subagent skills frontmatter (v2.0.43+)
+  - Session teleportation and image metadata (v2.1.0+)
 
 ## Plugin Component Development
 
