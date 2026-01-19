@@ -1,13 +1,14 @@
 # Skill & Command Creator Plugin
 
-A comprehensive toolkit for creating Agent Skills and slash commands in Claude Code with templates, validation, and best practices guidance.
+A comprehensive toolkit for creating Agent Skills, slash commands, and hooks in Claude Code with templates, validation, and best practices guidance.
 
 ## Overview
 
-This plugin provides two powerful Skills:
+This plugin provides three powerful Skills:
 
 1. **Skill Creator** - Create comprehensive Agent Skills with proper structure, validation, and best practices
 2. **Command Creator** - Create custom slash commands with proper syntax, arguments, and advanced features
+3. **Hooks Creator** - Create, configure, and use Claude Code hooks with security best practices and workflow automation patterns
 
 ## Installation
 
@@ -93,6 +94,18 @@ The Command Creator will automatically:
 - Manage tool permissions and security
 - Organize commands in subdirectories
 
+### Hooks Creator
+**When it activates**: Automatically when you mention hooks, setting up PreToolUse/PostToolUse/Stop events, implementing security validation, or creating workflow automation.
+
+**Capabilities**:
+- Configure all hook types (PreToolUse, PostToolUse, Stop, SubagentStop, UserPromptSubmit, etc.)
+- Security validation patterns (block dangerous commands, protect sensitive files)
+- Workflow automation (auto-format, linting, git operations)
+- Quality assurance hooks (test validation, TODO checks)
+- External script architecture with proper patterns
+- Exit code control flow for blocking vs warning
+- JSON-based decision control for advanced scenarios
+
 ## Examples
 
 ### Example 1: Creating a Data Analysis Skill
@@ -169,6 +182,13 @@ claude --debug  # Check for loading errors
 - Verify argument placeholder syntax
 - Test with `/help` command
 
+### Hooks Not Firing
+- Verify JSON syntax in settings.json
+- Check matcher pattern matches tool name
+- Ensure script has execute permissions (`chmod +x`)
+- Use `$CLAUDE_PROJECT_DIR` for script paths
+- Test with `/hooks` command
+
 ## Support
 
 For issues, feature requests, or contributions:
@@ -182,6 +202,13 @@ MIT License - see LICENSE file for details.
 
 ## Version History
 
+- **v1.1.0**: Added Hooks Creator skill
+  - Comprehensive hooks configuration guidance
+  - Security validation patterns and examples
+  - Workflow automation templates (PreToolUse, PostToolUse, Stop)
+  - External script architecture best practices
+  - Exit code control flow documentation
+  - JSON-based decision control examples
 - **v1.0.0**: Initial release with Skill Creator and Command Creator
   - Comprehensive Skill development toolkit
   - Advanced slash command creation features

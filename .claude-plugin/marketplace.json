@@ -67,8 +67,8 @@
     {
       "name": "skill-command-creator",
       "source": "./plugins/skill-command-creator",
-      "description": "A comprehensive toolkit for creating Agent Skills and slash commands with templates, validation, and best practices guidance",
-      "version": "1.0.1",
+      "description": "A comprehensive toolkit for creating Agent Skills, slash commands, and hooks with templates, validation, and best practices guidance",
+      "version": "1.1.0",
       "author": {
         "name": "Peter Wegner",
         "email": "peter.wegner@andrena.de"
@@ -76,12 +76,13 @@
       "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
       "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
       "license": "MIT",
-      "keywords": ["skills", "commands", "creation", "templates", "productivity", "development"],
+      "keywords": ["skills", "commands", "hooks", "creation", "templates", "productivity", "development", "automation", "security"],
       "category": "productivity",
-      "tags": ["skills", "commands", "creation", "templates", "automation"],
+      "tags": ["skills", "commands", "creation", "templates", "automation", "hooks"],
       "skills": [
         "./skills/skill-creator",
-        "./skills/command-creator"
+        "./skills/command-creator",
+        "./skills/hooks-creator"
       ],
       "strict": false
     },
