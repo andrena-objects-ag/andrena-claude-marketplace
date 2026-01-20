@@ -1,0 +1,19 @@
+{
+  "name": "code-review",
+  "version": "1.0.0",
+  "description": "Code review skill and agent with shared, externalized review prompt. Uses a dedicated subagent by default for isolated reviews, with optional in-context review.",
+  "author": {
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "keywords": ["code-review", "quality", "security", "best-practices", "agent", "skill"],
+  "agents": [
+    "./agents/code-reviewer.md"
+  ],
+  "skills": [
+    "./skills/code-review"
+  ]
+}

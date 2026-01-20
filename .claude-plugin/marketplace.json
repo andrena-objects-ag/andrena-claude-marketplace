@@ -253,6 +253,29 @@
       "category": "utilities",
       "tags": ["permissions", "settings", "cli", "management"],
       "strict": false
+    },
+    {
+      "name": "code-review",
+      "source": "./plugins/code-review",
+      "description": "Code review skill and agent with extensible, externalized review prompts. Base guidelines can be extended with project-specific custom rules from .claude/code-review/custom-guidelines.d/. Uses a dedicated subagent by default for isolated reviews, with optional in-context review.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
+      },
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "license": "MIT",
+      "keywords": ["code-review", "quality", "security", "best-practices", "agent", "skill", "extensible", "custom-guidelines"],
+      "category": "productivity",
+      "tags": ["code-review", "quality", "security", "testing", "agent", "extensible"],
+      "agents": [
+        "./agents/code-reviewer.md"
+      ],
+      "skills": [
+        "./skills/code-review"
+      ],
+      "strict": false
     }
   ]
 }
