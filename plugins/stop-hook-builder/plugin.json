@@ -1,7 +1,7 @@
 {
   "name": "stop-hook-builder",
-  "version": "1.0.1",
-  "description": "Analyzes your project to suggest and configure Stop hooks for common workflows. Detects build tools, linters, and testing frameworks. Validates each command by running it and measuring execution time. Auto-applies safe defaults (compile, lint) and interactively suggests test strategies based on project setup.",
+  "version": "1.0.2",
+  "description": "Analyzes your project to suggest and configure Stop hooks for common workflows. Detects build tools, linters, and testing frameworks. Validates each command by running it and measuring execution time. **CRITICAL: Executes generated hook end-to-end to verify it works before declaring success.** Auto-applies safe defaults (compile, lint) and interactively suggests test strategies based on project setup.",
   "author": {
     "name": "Peter Wegner",
     "email": "peter.wegner@andrena.de"

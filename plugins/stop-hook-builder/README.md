@@ -10,6 +10,7 @@ Automatically configure intelligent Stop hooks for your project based on detecte
 - **Smart Categorization** - Separates commands by measured speed (fast/medium/slow)
 - **Auto-Apply Safe Defaults** - Compile and lint hooks added automatically
 - **Interactive Test Configuration** - Choose which test types to run on stop
+- **End-to-End Hook Testing** - **Executes generated hook to verify it works before declaring success**
 - **Multi-Language Support** - Node.js, Python, Rust, Go, and more
 
 ## How It Works
@@ -119,6 +120,34 @@ run_check "Unit tests" "npm test -- --testPathPattern=unit"
 # Slow checks (if explicitly enabled)
 run_check "E2E tests" "npm run test:e2e"
 ```
+
+## Critical: End-to-End Hook Testing
+
+**Before declaring the hook "created", the skill executes the generated hook to verify it works:**
+
+```bash
+# Test the generated hook
+bash .claude/hooks/stop/quality-check.sh
+```
+
+**Success output:**
+```
+Running: TypeScript compile
+✓ TypeScript compile passed
+
+Running: ESLint
+✓ ESLint passed
+
+All quality checks passed!
+```
+
+**If hook fails, the skill:**
+1. Analyzes the error
+2. Fixes the hook script or command
+3. Re-executes until all checks pass
+4. Only then reports success to user
+
+This ensures hooks are actually working, not just created.
 
 ## Customization
 
