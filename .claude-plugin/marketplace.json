@@ -276,6 +276,26 @@
         "./skills/code-review"
       ],
       "strict": false
+    },
+    {
+      "name": "stop-hook-builder",
+      "source": "./plugins/stop-hook-builder",
+      "description": "Analyzes your project to suggest and configure Stop hooks for common workflows. Detects build tools, linters, and testing frameworks. Auto-applies safe defaults (compile, lint) and interactively suggests test strategies based on project setup.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
+      },
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "license": "MIT",
+      "keywords": ["hooks", "stop-hook", "workflow", "automation", "quality", "testing", "linting"],
+      "category": "utilities",
+      "tags": ["hooks", "automation", "quality", "testing", "workflow"],
+      "skills": [
+        "./skills/stop-hook-builder"
+      ],
+      "strict": false
     }
   ]
 }
