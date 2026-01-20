@@ -103,6 +103,7 @@ Claude Code plugins can contain multiple component types:
 
 ### Best Practices
 - `.llm/best-practices/claude-code-plugins.md` - **Comprehensive best practices for Claude Code plugin development** (Skills, Commands, Agents, Hooks, CLAUDE.md, and workflow patterns based on official Anthropic guidance)
+- `.llm/plugin-patterns.md` - **Architectural patterns for plugin design** (Externalized prompts, extensible guidelines, Stop hook automation, subagent decisions)
 
 ### Component Documentation
 - **Agent files**: Markdown descriptions in `agents/` directories
