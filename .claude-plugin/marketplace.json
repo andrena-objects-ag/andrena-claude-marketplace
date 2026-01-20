@@ -197,7 +197,7 @@
       "name": "ralph-learning-loop",
       "source": "./plugins/ralph-learning-loop",
       "description": "Autonomous iteration loop with automatic learning capture. Combines Ralph Wiggum's persistent iteration with documentation-learner's knowledge capture, creating a reasonable loop that learns from each cycle.",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Peter Wegner",
         "email": "peter.wegner@andrena.de"
