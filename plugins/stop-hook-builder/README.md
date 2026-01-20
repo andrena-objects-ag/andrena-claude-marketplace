@@ -5,7 +5,9 @@ Automatically configure intelligent Stop hooks for your project based on detecte
 ## Features
 
 - **Project Analysis** - Detects build tools, linters, and testing frameworks
-- **Smart Categorization** - Separates commands by speed (fast/medium/slow)
+- **Command Validation** - Tests each detected command before including it
+- **Execution Time Measurement** - Measures actual speed, adjusts categories accordingly
+- **Smart Categorization** - Separates commands by measured speed (fast/medium/slow)
 - **Auto-Apply Safe Defaults** - Compile and lint hooks added automatically
 - **Interactive Test Configuration** - Choose which test types to run on stop
 - **Multi-Language Support** - Node.js, Python, Rust, Go, and more
@@ -23,6 +25,38 @@ The skill scans your project for:
 ### 2. Categorization
 
 Detected commands are categorized by execution time:
+
+| Category | Typical Time | Behavior |
+|----------|--------------|----------|
+| **Fast** | < 5 seconds | Auto-applied (compile, lint) |
+| **Medium** | 5-60 seconds | Suggested with opt-in (unit tests) |
+| **Slow** | > 60 seconds | Opt-in with warning (e2e, integration) |
+
+### 3. Validation
+
+Before applying any hook, each command is validated:
+
+1. **Execution Test** - Run command, check exit code
+2. **Time Measurement** - Measure actual execution time
+3. **Error Analysis** - Check for setup issues (missing deps, config errors)
+
+Commands that fail validation are excluded with explanations.
+
+**Example validation output:**
+```
+Testing detected commands...
+
+✓ tsc --noEmit
+  Exit: 0, Time: 2.3s → Fast ✓
+
+✓ npm run lint
+  Exit: 0, Time: 4.1s → Fast ✓
+
+⚠ npm test
+  Exit: 1, Time: 8.2s
+  Issues: 2 failing tests
+  Status: SKIPPED (fix tests first)
+```
 
 | Category | Typical Time | Behavior |
 |----------|--------------|----------|
