@@ -14,7 +14,7 @@
       "name": "gemini-web-search-agent",
       "source": "./plugins/gemini-web-search-agent",
       "description": "Use this agent for web searches and retrieving current information using the Gemini CLI",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Peter Wegner",
         "email": "peter.wegner@andrena.de"
@@ -25,7 +25,6 @@
       "keywords": ["search", "web", "gemini", "information", "current"],
       "category": "agents",
       "tags": ["search", "web", "gemini", "research"],
-      "agents": "./gemini-web-search-agent.md",
       "strict": false
     },
     {
