@@ -22,7 +22,7 @@ Add this marketplace to Claude Code and install plugins:
 Use specialized web searches and retrieve current information using the Gemini CLI.
 
 ```bash
-/plugin install gemini-web-search-agent@claude-marketplace
+/plugin install gemini-web-search-agent@andrena-marketplace
 ```
 
 ### 🛠️ [Skill & Command Creator](./plugins/skill-command-creator/)
@@ -31,7 +31,7 @@ Use specialized web searches and retrieve current information using the Gemini C
 Create comprehensive Agent Skills and custom slash commands with templates, validation, and best practices.
 
 ```bash
-/plugin install skill-command-creator@claude-marketplace
+/plugin install skill-command-creator@andrena-marketplace
 ```
 
 ### 📊 [SlideGen](./plugins/slidegen/)
@@ -40,7 +40,7 @@ Create comprehensive Agent Skills and custom slash commands with templates, vali
 AI-powered presentation creation system with specialized agents, customizable templates, and workflow automation. Supports Marp and Slidev.
 
 ```bash
-/plugin install slidegen@claude-marketplace
+/plugin install slidegen@andrena-marketplace
 ```
 
 ### ⚡ [Parallel Subagent](./plugins/parallel-subagent-plugin/)
@@ -49,7 +49,7 @@ AI-powered presentation creation system with specialized agents, customizable te
 Parallel execution specialist for background tasks that can run independently of the main conversation thread without blocking workflow.
 
 ```bash
-/plugin install parallel-subagent@claude-marketplace
+/plugin install parallel-subagent@andrena-marketplace
 ```
 
 ### 💻 [Coding Aider](./plugins/coding-aider/)
@@ -58,7 +58,7 @@ Parallel execution specialist for background tasks that can run independently of
 Generate structured coding-aider plans that mirror the IntelliJ coding-aider plugin's plan system, complete with overview, goals, implementation checklist, and file context management.
 
 ```bash
-/plugin install coding-aider@claude-marketplace
+/plugin install coding-aider@andrena-marketplace
 ```
 
 ### 🚀 [PRD Parallel Execution](./plugins/prd-parallel-execution/)
@@ -67,7 +67,7 @@ Generate structured coding-aider plans that mirror the IntelliJ coding-aider plu
 Convert PRDs into contract-first, parallel implementation plans and execute them with automated subagent orchestration.
 
 ```bash
-/plugin install prd-parallel-execution@claude-marketplace
+/plugin install prd-parallel-execution@andrena-marketplace
 ```
 
 ### 🎓 [Documentation Learner](./plugins/documentation-learner/)
@@ -76,7 +76,7 @@ Convert PRDs into contract-first, parallel implementation plans and execute them
 Extract key learnings from conversations and automatically update project documentation. Includes `--analyze-docs` mode for analyzing documentation structure.
 
 ```bash
-/plugin install documentation-learner@claude-marketplace
+/plugin install documentation-learner@andrena-marketplace
 ```
 
 ### 🎲 [Ralph Learning Loop](./plugins/ralph-learning-loop/)
@@ -85,7 +85,7 @@ Extract key learnings from conversations and automatically update project docume
 Autonomous iteration loop with automatic learning capture. Combines persistent iteration with knowledge capture.
 
 ```bash
-/plugin install ralph-learning-loop@claude-marketplace
+/plugin install ralph-learning-loop@andrena-marketplace
 ```
 
 ### 🔐 [Permission Manager](./plugins/permission-manager/)
@@ -94,7 +94,7 @@ Autonomous iteration loop with automatic learning capture. Combines persistent i
 Manage Claude Code permissions across local and global scopes with promotion, comparison, and sync capabilities.
 
 ```bash
-/plugin install permission-manager@claude-marketplace
+/plugin install permission-manager@andrena-marketplace
 ```
 
 ### 📚 [Best Practices Advisor](./plugins/best-practices-advisor/)
@@ -103,7 +103,7 @@ Manage Claude Code permissions across local and global scopes with promotion, co
 Automatically discovers technologies and versions in any project, researches current best practices from authoritative sources, and extends local documentation with version-specific guidelines. Works across all tech stacks (Node.js, .NET, Java, Python, Go, Ruby, PHP, etc.).
 
 ```bash
-/plugin install best-practices-advisor@claude-marketplace
+/plugin install best-practices-advisor@andrena-marketplace
 ```
 
 ### 🛡️ [Adversarial Checkpoint](./plugins/adversarial-checkpoint-plugin/)
@@ -112,7 +112,7 @@ Automatically discovers technologies and versions in any project, researches cur
 Adversarial checkpoint validation system with resumable challenger agent for quality assurance.
 
 ```bash
-/plugin install adversarial-checkpoint-plugin@claude-marketplace
+/plugin install adversarial-checkpoint-plugin@andrena-marketplace
 ```
 
 ### 🧠 [Andrej Karpathy Skills](./plugins/andrej-karpathy-skills/)

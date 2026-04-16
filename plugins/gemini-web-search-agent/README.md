@@ -10,7 +10,7 @@ The Gemini Web Search Agent is a specialized agent for performing web searches a
 
 ```bash
 /plugin marketplace add p-wegner/claude-marketplace
-/plugin install gemini-web-search-agent@claude-marketplace
+/plugin install gemini-web-search-agent@andrena-marketplace
 ```
 
 ## Usage

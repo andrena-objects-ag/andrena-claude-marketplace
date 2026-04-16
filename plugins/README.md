@@ -10,7 +10,7 @@ This directory contains all available plugins in the Claude Marketplace. Each pl
 Specialized web search and information retrieval using the Gemini CLI.
 - **Perfect for**: Research, documentation lookup, current information
 - **Features**: Optimized search queries, real-time information retrieval
-- **Installation**: `/plugin install gemini-web-search-agent@claude-marketplace`
+- **Installation**: `/plugin install gemini-web-search-agent@andrena-marketplace`
 
 ---
 
@@ -22,7 +22,7 @@ Create comprehensive Agent Skills and custom slash commands with templates and v
 - **Features**:
   - Skill Creator (build Agent Skills with proper structure)
   - Command Creator (create custom slash commands with arguments)
-- **Installation**: `/plugin install skill-command-creator@claude-marketplace`
+- **Installation**: `/plugin install skill-command-creator@andrena-marketplace`
 
 ---
 
@@ -32,7 +32,7 @@ Create comprehensive Agent Skills and custom slash commands with templates and v
 AI-powered presentation creation system with specialized agents and templates.
 - **Perfect for**: Professional presentations, educational content, training materials
 - **Features**: Multiple specialized agents, Marp/Slidev support, template customization
-- **Installation**: `/plugin install slidegen@claude-marketplace`
+- **Installation**: `/plugin install slidegen@andrena-marketplace`
 
 ## 🚀 Quick Installation
 
@@ -48,16 +48,16 @@ AI-powered presentation creation system with specialized agents and templates.
 
 3. **Install desired plugins**:
    ```bash
-   /plugin install plugin-name@claude-marketplace
+   /plugin install plugin-name@andrena-marketplace
    ```
 
 ## 📋 Plugin Categories
 
 | Plugin | Type | Primary Use | Installation Command |
 |--------|------|-------------|---------------------|
-| 🔍 Gemini Web Search | Agent | Web research & information | `/plugin install gemini-web-search-agent@claude-marketplace` |
-| 🛠️ Skill & Command Creator | Plugin + Skills | Create Skills & Commands | `/plugin install skill-command-creator@claude-marketplace` |
-| 📊 SlideGen | Plugin Suite | Presentation creation | `/plugin install slidegen@claude-marketplace` |
+| 🔍 Gemini Web Search | Agent | Web research & information | `/plugin install gemini-web-search-agent@andrena-marketplace` |
+| 🛠️ Skill & Command Creator | Plugin + Skills | Create Skills & Commands | `/plugin install skill-command-creator@andrena-marketplace` |
+| 📊 SlideGen | Plugin Suite | Presentation creation | `/plugin install slidegen@andrena-marketplace` |
 
 ## 💡 Recommendations
 

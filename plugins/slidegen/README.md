@@ -10,7 +10,7 @@ SlideGen is a comprehensive presentation creation system that uses specialized A
 
 ```bash
 /plugin marketplace add p-wegner/claude-marketplace
-/plugin install slidegen@claude-marketplace
+/plugin install slidegen@andrena-marketplace
 ```
 
 ## Quick Start
