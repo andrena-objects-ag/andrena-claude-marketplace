@@ -115,6 +115,15 @@ Adversarial checkpoint validation system with resumable challenger agent for qua
 /plugin install adversarial-checkpoint-plugin@claude-marketplace
 ```
 
+### 🧠 [Andrej Karpathy Skills](./plugins/andrej-karpathy-skills/)
+**Type**: Plugin with Skill | **Category**: Productivity & Code Quality
+
+Behavioral guidelines derived from Andrej Karpathy's observations on LLM coding pitfalls. Enforces four principles: Think Before Coding, Simplicity First, Surgical Changes, and Goal-Driven Execution.
+
+```bash
+/plugin install andrej-karpathy-skills@andrena-marketplace
+```
+
 ## Documentation
 
 - **[Plugins Guide](./docs/plugins.md)** - Plugin creation and usage
@@ -142,5 +151,5 @@ MIT License. Individual plugins may have their own licenses.
 
 ---
 
-**Marketplace Version**: 1.0.3 | **Plugins**: 11
+**Marketplace Version**: 1.0.4 | **Plugins**: 12
 
