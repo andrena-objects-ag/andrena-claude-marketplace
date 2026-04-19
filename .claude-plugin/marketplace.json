@@ -31,7 +31,7 @@
       "name": "slidegen",
       "source": "./plugins/slidegen",
       "description": "Complete presentation creation system with specialized agents, customizable templates, and AI-powered workflow automation. Supports Marp and Slidev with research-backed content generation and professional branding.",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Peter Wegner",
         "email": "peter.wegner@andrena.de"
@@ -129,7 +129,7 @@
       "name": "prd-parallel-execution",
       "source": "./plugins/prd-parallel-execution",
       "description": "PRD to parallel implementation execution system with contract-first development approach and automated subagent orchestration",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Peter Wegner",
         "email": "peter.wegner@andrena.de"

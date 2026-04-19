@@ -1,5 +1,5 @@
 ---
-name: PRD-to-Implementation-Plan
+name: prd-to-implementation-plan
 description: Convert Product Requirements Documents (PRDs) into contract-first, parallel implementation plans. Use when you have a PRD file and need to break down the work into optimized development streams that prioritize API contracts, environment setup, and parallel execution for maximum speed.
 allowed-tools: Read, Write, Edit, Grep, Glob
 ---

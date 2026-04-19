@@ -1,5 +1,5 @@
 ---
-name: Presentation Creator
+name: presentation-creator
 description: Create complete presentations from topic to finished slides using slidegen's specialized agents. Supports both Marp and Slidev with template selection, web research, and interactive elements. Use when you need to create presentations, slides, or visual content.
 allowed-tools: Read, Write, Edit, Glob, Grep, WebSearch, WebFetch
 ---
