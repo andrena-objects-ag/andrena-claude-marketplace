@@ -1,0 +1,28 @@
+{
+  "description": "Smart-hooks: Configurable quality checks via JSON config",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/smart-hooks-runner.js\" PostToolUse",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/smart-hooks-runner.js\" Stop",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

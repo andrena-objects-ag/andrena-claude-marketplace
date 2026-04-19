@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "name": "gofmt",
+        "command": "gofmt -w \"{file}\"",
+        "filePatterns": ["*.go"],
+        "timeout": 10,
+        "blocking": false,
+        "enabled": true
+      }
+    ],
+    "Stop": [
+      {
+        "name": "go-vet",
+        "command": "go vet ./...",
+        "filePatterns": [],
+        "timeout": 60,
+        "blocking": true,
+        "enabled": true
+      },
+      {
+        "name": "go-build",
+        "command": "go build ./...",
+        "filePatterns": [],
+        "timeout": 60,
+        "blocking": true,
+        "enabled": true
+      },
+      {
+        "name": "go-test",
+        "command": "go test ./...",
+        "filePatterns": [],
+        "timeout": 120,
+        "blocking": true,
+        "enabled": true
+      }
+    ]
+  }
+}

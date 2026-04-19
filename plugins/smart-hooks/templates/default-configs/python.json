@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "name": "ruff-fix",
+        "command": "ruff check --fix \"{file}\"",
+        "filePatterns": ["*.py", "*.pyi"],
+        "timeout": 15,
+        "blocking": false,
+        "enabled": true
+      },
+      {
+        "name": "black-format",
+        "command": "black \"{file}\"",
+        "filePatterns": ["*.py"],
+        "timeout": 15,
+        "blocking": false,
+        "enabled": true
+      },
+      {
+        "name": "isort-format",
+        "command": "isort \"{file}\"",
+        "filePatterns": ["*.py"],
+        "timeout": 10,
+        "blocking": false,
+        "enabled": true
+      }
+    ],
+    "Stop": [
+      {
+        "name": "ruff-check",
+        "command": "ruff check .",
+        "filePatterns": [],
+        "timeout": 60,
+        "blocking": true,
+        "enabled": true
+      },
+      {
+        "name": "mypy-check",
+        "command": "mypy .",
+        "filePatterns": [],
+        "timeout": 120,
+        "blocking": false,
+        "enabled": true
+      },
+      {
+        "name": "pytest",
+        "command": "pytest",
+        "filePatterns": [],
+        "timeout": 120,
+        "blocking": true,
+        "enabled": true
+      }
+    ]
+  }
+}

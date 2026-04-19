@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "name": "eslint-fix",
+        "command": "npx eslint --fix \"{file}\"",
+        "filePatterns": ["*.js", "*.ts", "*.jsx", "*.tsx", "*.mjs", "*.cjs"],
+        "timeout": 30,
+        "blocking": false,
+        "enabled": true
+      },
+      {
+        "name": "prettier-format",
+        "command": "npx prettier --write \"{file}\"",
+        "filePatterns": ["*.js", "*.ts", "*.jsx", "*.tsx", "*.json", "*.css", "*.md"],
+        "timeout": 15,
+        "blocking": false,
+        "enabled": true
+      }
+    ],
+    "Stop": [
+      {
+        "name": "eslint-check",
+        "command": "npx eslint .",
+        "filePatterns": [],
+        "timeout": 60,
+        "blocking": true,
+        "enabled": true
+      },
+      {
+        "name": "typescript-check",
+        "command": "npx tsc --noEmit",
+        "filePatterns": [],
+        "timeout": 60,
+        "blocking": true,
+        "enabled": true
+      },
+      {
+        "name": "unit-tests",
+        "command": "npx jest --passWithNoTests",
+        "filePatterns": [],
+        "timeout": 120,
+        "blocking": true,
+        "enabled": true
+      }
+    ]
+  }
+}

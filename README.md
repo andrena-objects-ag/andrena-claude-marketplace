@@ -115,6 +115,15 @@ Adversarial checkpoint validation system with resumable challenger agent for qua
 /plugin install adversarial-checkpoint-plugin@andrena-marketplace
 ```
 
+### 🎯 [Smart Hooks](./plugins/smart-hooks/)
+**Type**: Plugin with Skill & Hooks | **Category**: Utilities
+
+Auto-configure quality hooks (linting, formatting, testing) for any project. Analyzes your stack, detects tools, validates them, and generates a JSON config with a generic runner script. Supports Node.js, Python, Rust, Go, Java, and C#.
+
+```bash
+/plugin install smart-hooks@andrena-marketplace
+```
+
 ### 🧠 [Andrej Karpathy Skills](./plugins/andrej-karpathy-skills/)
 **Type**: Plugin with Skill | **Category**: Productivity & Code Quality
 
@@ -151,5 +160,5 @@ MIT License. Individual plugins may have their own licenses.
 
 ---
 
-**Marketplace Version**: 1.0.4 | **Plugins**: 12
+**Marketplace Version**: 1.1.0 | **Plugins**: 12
 

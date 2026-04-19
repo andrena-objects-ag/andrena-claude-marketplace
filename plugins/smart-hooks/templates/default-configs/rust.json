@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "name": "rustfmt",
+        "command": "rustfmt --edition 2021 \"{file}\"",
+        "filePatterns": ["*.rs"],
+        "timeout": 15,
+        "blocking": false,
+        "enabled": true
+      }
+    ],
+    "Stop": [
+      {
+        "name": "cargo-clippy",
+        "command": "cargo clippy -- -D warnings",
+        "filePatterns": [],
+        "timeout": 120,
+        "blocking": true,
+        "enabled": true
+      },
+      {
+        "name": "cargo-test",
+        "command": "cargo test",
+        "filePatterns": [],
+        "timeout": 120,
+        "blocking": true,
+        "enabled": true
+      },
+      {
+        "name": "cargo-build",
+        "command": "cargo build",
+        "filePatterns": [],
+        "timeout": 120,
+        "blocking": true,
+        "enabled": true
+      }
+    ]
+  }
+}

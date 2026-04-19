@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "hooks": {
+    "PostToolUse": [],
+    "Stop": [
+      {
+        "name": "maven-compile",
+        "command": "mvn compile -q",
+        "filePatterns": [],
+        "timeout": 120,
+        "blocking": true,
+        "enabled": true
+      },
+      {
+        "name": "maven-test",
+        "command": "mvn test -q",
+        "filePatterns": [],
+        "timeout": 120,
+        "blocking": true,
+        "enabled": true
+      },
+      {
+        "name": "checkstyle",
+        "command": "mvn checkstyle:check",
+        "filePatterns": [],
+        "timeout": 60,
+        "blocking": false,
+        "enabled": true
+      }
+    ]
+  }
+}
