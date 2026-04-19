@@ -1,5 +1,5 @@
 ---
-name: Skill Creator
+name: skill-creator
 description: Create comprehensive Agent Skills with proper structure, validation, and best practices. Use when you need to create new Agent Skills for personal or project use, or when users ask about creating skills, extending Claude's capabilities, or organizing expertise into reusable skills.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---

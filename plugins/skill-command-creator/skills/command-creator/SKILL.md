@@ -1,5 +1,5 @@
 ---
-name: Command Creator
+name: command-creator
 description: Create custom slash commands with proper syntax, arguments, frontmatter, and features. Use when users need to create slash commands, want to automate frequent prompts, or need to organize commands for team workflows.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
