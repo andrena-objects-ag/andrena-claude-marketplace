@@ -550,7 +550,7 @@ my-plugin/
     Learn how Skills work across Claude products
   </Card>
 
-  <Card title="Use Skills in the Agent SDK" icon="cube" href="https://docs.claude.com/en/docs/agent-sdk/skills">
+  <Card title="Use Skills in the Agent SDK" icon="cube" href="https://docs.claude.com/en/agent-sdk/skills">
     Use Skills programmatically with TypeScript and Python
   </Card>
 

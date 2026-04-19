@@ -14,11 +14,11 @@ to help you complete software engineering tasks efficiently.
 There are two additional built-in output styles focused on teaching you the
 codebase and how Claude operates:
 
-* **Explanatory**: Provides educational "Insights" in between helping you
+- **Explanatory**: Provides educational "Insights" in between helping you
   complete software engineering tasks. Helps you understand implementation
   choices and codebase patterns.
 
-* **Learning**: Collaborative, learn-by-doing mode where Claude will not only
+- **Learning**: Collaborative, learn-by-doing mode where Claude will not only
   share "Insights" while coding, but also ask you to contribute small, strategic
   pieces of code yourself. Claude Code will add `TODO(human)` markers in your
   code for you to implement.
@@ -27,35 +27,38 @@ codebase and how Claude operates:
 
 Output styles directly modify Claude Code's system prompt.
 
-* All output styles exclude instructions for efficient output (such as
-  responding concisely).
-* Custom output styles exclude instructions for coding (such as verifying code
-  with tests), unless `keep-coding-instructions` is true.
-* All output styles have their own custom instructions added to the end of the
+- Non-default output styles exclude instructions specific to code generation and
+  efficient output normally built into Claude Code (such as responding concisely
+  and verifying code with tests).
+- Instead, these output styles have their own custom instructions added to the
   system prompt.
-* All output styles trigger reminders for Claude to adhere to the output style
-  instructions during the conversation.
 
 ## Change your output style
 
 You can either:
 
-* Run `/output-style` to access a menu and select your output style (this can
+- Run `/output-style` to access the menu and select your output style (this can
   also be accessed from the `/config` menu)
 
-* Run `/output-style [style]`, such as `/output-style explanatory`, to directly
+- Run `/output-style [style]`, such as `/output-style explanatory`, to directly
   switch to a style
 
-These changes apply to the [local project level](/en/settings) and are saved in
+These changes apply to the local project level and are saved in
 `.claude/settings.local.json`. You can also directly edit the `outputStyle`
 field in a settings file at a different level.
 
 ## Create a custom output style
 
+To set up a new output style with Claude's help, run:
+
+```
+/output-style:new I want an output style that ...
+```
+
 Custom output styles are Markdown files with frontmatter and the text that will
 be added to the system prompt:
 
-```markdown  theme={null}
+```markdown
 ---
 name: My Custom Style
 description:
@@ -78,7 +81,7 @@ project level (`.claude/output-styles`).
 ### Frontmatter
 
 Output style files support frontmatter, useful for specifying metadata about the
-command:
+style:
 
 | Frontmatter                | Purpose                                                                     | Default                 |
 | :------------------------- | :-------------------------------------------------------------------------- | :---------------------- |
@@ -96,19 +99,14 @@ prompt specific to software engineering. Neither CLAUDE.md nor
 adds the contents as a user message *following* Claude Code's default system
 prompt. `--append-system-prompt` appends the content to the system prompt.
 
-### Output Styles vs. [Agents](/en/sub-agents)
+### Output Styles vs. Agents
 
 Output styles directly affect the main agent loop and only affect the system
 prompt. Agents are invoked to handle specific tasks and can include additional
 settings like the model to use, the tools they have available, and some context
 about when to use the agent.
 
-### Output Styles vs. [Custom Slash Commands](/en/slash-commands)
+### Output Styles vs. Custom Slash Commands
 
 You can think of output styles as "stored system prompts" and custom slash
 commands as "stored prompts".
-
-
----
-
-> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

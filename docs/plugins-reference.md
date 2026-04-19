@@ -2,69 +2,19 @@
 
 > Complete technical reference for Claude Code plugin system, including schemas, CLI commands, and component specifications.
 
-<Tip>
-  Looking to install plugins? See [Discover and install plugins](/en/discover-plugins). For creating plugins, see [Plugins](/en/plugins). For distributing plugins, see [Plugin marketplaces](/en/plugin-marketplaces).
-</Tip>
-
 This reference provides complete technical specifications for the Claude Code plugin system, including component schemas, CLI commands, and development tools.
+
+A **plugin** is a self-contained directory of components that extends Claude Code with custom functionality. Plugin components include skills, agents, hooks, MCP servers, LSP servers, and monitors.
 
 ## Plugin components reference
 
-This section documents the five types of components that plugins can provide.
-
-### Commands
-
-Plugins add custom slash commands that integrate seamlessly with Claude Code's command system.
-
-**Location**: `commands/` directory in plugin root
-
-**File format**: Markdown files with frontmatter
-
-For complete details on plugin command structure, invocation patterns, and features, see [Plugin commands](/en/slash-commands#plugin-commands).
-
-### Agents
-
-Plugins can provide specialized subagents for specific tasks that Claude can invoke automatically when appropriate.
-
-**Location**: `agents/` directory in plugin root
-
-**File format**: Markdown files describing agent capabilities
-
-**Agent structure**:
-
-```markdown  theme={null}
----
-description: What this agent specializes in
-capabilities: ["task1", "task2", "task3"]
----
-
-# Agent Name
-
-Detailed description of the agent's role, expertise, and when Claude should invoke it.
-
-## Capabilities
-- Specific task the agent excels at
-- Another specialized capability
-- When to use this agent vs others
-
-## Context and examples
-Provide examples of when this agent should be used and what kinds of problems it solves.
-```
-
-**Integration points**:
-
-* Agents appear in the `/agents` interface
-* Claude can invoke agents automatically based on task context
-* Agents can be invoked manually by users
-* Plugin agents work alongside built-in Claude agents
-
 ### Skills
 
-Plugins can provide Agent Skills that extend Claude's capabilities. Skills are model-invoked—Claude autonomously decides when to use them based on the task context.
+Plugins add skills to Claude Code, creating `/name` shortcuts that you or Claude can invoke.
 
-**Location**: `skills/` directory in plugin root
+**Location**: `skills/` or `commands/` directory in plugin root
 
-**File format**: Directories containing `SKILL.md` files with frontmatter
+**File format**: Skills are directories with `SKILL.md`; commands are simple markdown files
 
 **Skill structure**:
 
@@ -80,14 +30,45 @@ skills/
 
 **Integration behavior**:
 
-* Plugin Skills are automatically discovered when the plugin is installed
-* Claude autonomously invokes Skills based on matching task context
-* Skills can include supporting files alongside SKILL.md
+- Skills and commands are automatically discovered when the plugin is installed
+- Claude can invoke them automatically based on task context
+- Skills can include supporting files alongside SKILL.md
 
-For SKILL.md format and complete Skill authoring guidance, see:
+For complete details, see [Skills](/en/skills).
 
-* [Use Skills in Claude Code](/en/skills)
-* [Agent Skills overview](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview#skill-structure)
+### Agents
+
+Plugins can provide specialized subagents for specific tasks that Claude can invoke automatically when appropriate.
+
+**Location**: `agents/` directory in plugin root
+
+**File format**: Markdown files describing agent capabilities
+
+**Agent structure**:
+
+```yaml
+---
+name: agent-name
+description: What this agent specializes in and when Claude should invoke it
+model: sonnet
+effort: medium
+maxTurns: 20
+disallowedTools: Write, Edit
+---
+
+Detailed system prompt for the agent describing its role, expertise, and behavior.
+```
+
+Plugin agents support `name`, `description`, `model`, `effort`, `maxTurns`, `tools`, `disallowedTools`, `skills`, `memory`, `background`, and `isolation` frontmatter fields. The only valid `isolation` value is `"worktree"`. For security reasons, `hooks`, `mcpServers`, and `permissionMode` are not supported for plugin-shipped agents.
+
+**Integration points**:
+
+- Agents appear in the `/agents` interface
+- Claude can invoke agents automatically based on task context
+- Agents can be invoked manually by users
+- Plugin agents work alongside built-in Claude agents
+
+For complete details, see [Subagents](/en/sub-agents).
 
 ### Hooks
 
@@ -99,7 +80,7 @@ Plugins can provide event handlers that respond to Claude Code events automatica
 
 **Hook configuration**:
 
-```json  theme={null}
+```json
 {
   "hooks": {
     "PostToolUse": [
@@ -117,26 +98,43 @@ Plugins can provide event handlers that respond to Claude Code events automatica
 }
 ```
 
-**Available events**:
+Plugin hooks respond to the same lifecycle events as user-defined hooks:
 
-* `PreToolUse`: Before Claude uses any tool
-* `PostToolUse`: After Claude successfully uses any tool
-* `PostToolUseFailure`: After Claude tool execution fails
-* `PermissionRequest`: When a permission dialog is shown
-* `UserPromptSubmit`: When user submits a prompt
-* `Notification`: When Claude Code sends notifications
-* `Stop`: When Claude attempts to stop
-* `SubagentStart`: When a subagent is started
-* `SubagentStop`: When a subagent attempts to stop
-* `SessionStart`: At the beginning of sessions
-* `SessionEnd`: At the end of sessions
-* `PreCompact`: Before conversation history is compacted
+| Event | When it fires |
+| --- | --- |
+| `SessionStart` | When a session begins or resumes |
+| `UserPromptSubmit` | When you submit a prompt, before Claude processes it |
+| `PreToolUse` | Before a tool call executes. Can block it |
+| `PermissionRequest` | When a permission dialog appears |
+| `PermissionDenied` | When a tool call is denied by the auto mode classifier. Return `{retry: true}` to tell the model it may retry the denied tool call |
+| `PostToolUse` | After a tool call succeeds |
+| `PostToolUseFailure` | After a tool call fails |
+| `Notification` | When Claude Code sends a notification |
+| `SubagentStart` | When a subagent is spawned |
+| `SubagentStop` | When a subagent finishes |
+| `TaskCreated` | When a task is being created via `TaskCreate` |
+| `TaskCompleted` | When a task is being marked as completed |
+| `Stop` | When Claude finishes responding |
+| `StopFailure` | When the turn ends due to an API error. Output and exit code are ignored |
+| `TeammateIdle` | When an agent team teammate is about to go idle |
+| `InstructionsLoaded` | When a CLAUDE.md or `.claude/rules/*.md` file is loaded into context. Fires at session start and when files are lazily loaded during a session |
+| `ConfigChange` | When a configuration file changes during a session |
+| `CwdChanged` | When the working directory changes, for example when Claude executes a `cd` command. Useful for reactive environment management with tools like direnv |
+| `FileChanged` | When a watched file changes on disk. The `matcher` field specifies which filenames to watch |
+| `WorktreeCreate` | When a worktree is being created via `--worktree` or `isolation: "worktree"`. Replaces default git behavior |
+| `WorktreeRemove` | When a worktree is being removed, either at session exit or when a subagent finishes |
+| `PreCompact` | Before context compaction |
+| `PostCompact` | After context compaction completes |
+| `Elicitation` | When an MCP server requests user input during a tool call |
+| `ElicitationResult` | After a user responds to an MCP elicitation, before the response is sent back to the server |
+| `SessionEnd` | When a session terminates |
 
 **Hook types**:
 
-* `command`: Execute shell commands or scripts
-* `prompt`: Evaluate a prompt with an LLM (uses `$ARGUMENTS` placeholder for context)
-* `agent`: Run an agentic verifier with tools for complex verification tasks
+- `command`: execute shell commands or scripts
+- `http`: send the event JSON as a POST request to a URL
+- `prompt`: evaluate a prompt with an LLM (uses `$ARGUMENTS` placeholder for context)
+- `agent`: run an agentic verifier with tools for complex verification tasks
 
 ### MCP servers
 
@@ -148,7 +146,7 @@ Plugins can bundle Model Context Protocol (MCP) servers to connect Claude Code w
 
 **MCP server configuration**:
 
-```json  theme={null}
+```json
 {
   "mcpServers": {
     "plugin-database": {
@@ -169,24 +167,20 @@ Plugins can bundle Model Context Protocol (MCP) servers to connect Claude Code w
 
 **Integration behavior**:
 
-* Plugin MCP servers start automatically when the plugin is enabled
-* Servers appear as standard MCP tools in Claude's toolkit
-* Server capabilities integrate seamlessly with Claude's existing tools
-* Plugin servers can be configured independently of user MCP servers
+- Plugin MCP servers start automatically when the plugin is enabled
+- Servers appear as standard MCP tools in Claude's toolkit
+- Server capabilities integrate seamlessly with Claude's existing tools
+- Plugin servers can be configured independently of user MCP servers
 
 ### LSP servers
 
-<Tip>
-  Looking to use LSP plugins? Install them from the official marketplace—search for "lsp" in the `/plugin` Discover tab. This section documents how to create LSP plugins for languages not covered by the official marketplace.
-</Tip>
-
-Plugins can provide [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) (LSP) servers to give Claude real-time code intelligence while working on your codebase.
+Plugins can provide Language Server Protocol (LSP) servers to give Claude real-time code intelligence while working on your codebase.
 
 LSP integration provides:
 
-* **Instant diagnostics**: Claude sees errors and warnings immediately after each edit
-* **Code navigation**: go to definition, find references, and hover information
-* **Language awareness**: type information and documentation for code symbols
+- **Instant diagnostics**: Claude sees errors and warnings immediately after each edit
+- **Code navigation**: go to definition, find references, and hover information
+- **Language awareness**: type information and documentation for code symbols
 
 **Location**: `.lsp.json` in plugin root, or inline in `plugin.json`
 
@@ -194,7 +188,7 @@ LSP integration provides:
 
 **`.lsp.json` file format**:
 
-```json  theme={null}
+```json
 {
   "go": {
     "command": "gopls",
@@ -208,7 +202,7 @@ LSP integration provides:
 
 **Inline in `plugin.json`**:
 
-```json  theme={null}
+```json
 {
   "name": "my-plugin",
   "lspServers": {
@@ -225,64 +219,110 @@ LSP integration provides:
 
 **Required fields:**
 
-| Field                 | Description                                  |
-| :-------------------- | :------------------------------------------- |
-| `command`             | The LSP binary to execute (must be in PATH)  |
+| Field | Description |
+| --- | --- |
+| `command` | The LSP binary to execute (must be in PATH) |
 | `extensionToLanguage` | Maps file extensions to language identifiers |
 
 **Optional fields:**
 
-| Field                   | Description                                               |
-| :---------------------- | :-------------------------------------------------------- |
-| `args`                  | Command-line arguments for the LSP server                 |
-| `transport`             | Communication transport: `stdio` (default) or `socket`    |
-| `env`                   | Environment variables to set when starting the server     |
-| `initializationOptions` | Options passed to the server during initialization        |
-| `settings`              | Settings passed via `workspace/didChangeConfiguration`    |
-| `workspaceFolder`       | Workspace folder path for the server                      |
-| `startupTimeout`        | Max time to wait for server startup (milliseconds)        |
-| `shutdownTimeout`       | Max time to wait for graceful shutdown (milliseconds)     |
-| `restartOnCrash`        | Whether to automatically restart the server if it crashes |
-| `maxRestarts`           | Maximum number of restart attempts before giving up       |
-
-<Warning>
-  **You must install the language server binary separately.** LSP plugins configure how Claude Code connects to a language server, but they don't include the server itself. If you see `Executable not found in $PATH` in the `/plugin` Errors tab, install the required binary for your language.
-</Warning>
+| Field | Description |
+| --- | --- |
+| `args` | Command-line arguments for the LSP server |
+| `transport` | Communication transport: `stdio` (default) or `socket` |
+| `env` | Environment variables to set when starting the server |
+| `initializationOptions` | Options passed to the server during initialization |
+| `settings` | Settings passed via `workspace/didChangeConfiguration` |
+| `workspaceFolder` | Workspace folder path for the server |
+| `startupTimeout` | Max time to wait for server startup (milliseconds) |
+| `shutdownTimeout` | Max time to wait for graceful shutdown (milliseconds) |
+| `restartOnCrash` | Whether to automatically restart the server if it crashes |
+| `maxRestarts` | Maximum number of restart attempts before giving up |
 
 **Available LSP plugins:**
 
-| Plugin           | Language server            | Install command                                                                            |
-| :--------------- | :------------------------- | :----------------------------------------------------------------------------------------- |
-| `pyright-lsp`    | Pyright (Python)           | `pip install pyright` or `npm install -g pyright`                                          |
-| `typescript-lsp` | TypeScript Language Server | `npm install -g typescript-language-server typescript`                                     |
-| `rust-lsp`       | rust-analyzer              | [See rust-analyzer installation](https://rust-analyzer.github.io/manual.html#installation) |
+| Plugin | Language server | Install command |
+| --- | --- | --- |
+| `pyright-lsp` | Pyright (Python) | `pip install pyright` or `npm install -g pyright` |
+| `typescript-lsp` | TypeScript Language Server | `npm install -g typescript-language-server typescript` |
+| `rust-lsp` | rust-analyzer | [See rust-analyzer installation](https://rust-analyzer.github.io/manual.html#installation) |
 
 Install the language server first, then install the plugin from the marketplace.
 
-***
+### Monitors
+
+Plugins can declare background monitors that Claude Code starts automatically when the plugin is active. Each monitor runs a shell command for the lifetime of the session and delivers every stdout line to Claude as a notification, so Claude can react to log entries, status changes, or polled events without being asked to start the watch itself.
+
+Plugin monitors use the same mechanism as the Monitor tool and share its availability constraints. They run only in interactive CLI sessions, run unsandboxed at the same trust level as hooks, and are skipped on hosts where the Monitor tool is unavailable.
+
+**Location**: `monitors/monitors.json` in the plugin root, or inline in `plugin.json`
+
+**Format**: JSON array of monitor entries
+
+The following `monitors/monitors.json` watches a deployment status endpoint and a local error log:
+
+```json
+[
+  {
+    "name": "deploy-status",
+    "command": "${CLAUDE_PLUGIN_ROOT}/scripts/poll-deploy.sh ${user_config.api_endpoint}",
+    "description": "Deployment status changes"
+  },
+  {
+    "name": "error-log",
+    "command": "tail -F ./logs/error.log",
+    "description": "Application error log",
+    "when": "on-skill-invoke:debug"
+  }
+]
+```
+
+To declare monitors inline, set the `monitors` key in `plugin.json` to the same array. To load from a non-default path, set `monitors` to a relative path string such as `"./config/monitors.json"`.
+
+**Required fields:**
+
+| Field | Description |
+| --- | --- |
+| `name` | Identifier unique within the plugin. Prevents duplicate processes when the plugin reloads or a skill is invoked again |
+| `command` | Shell command run as a persistent background process in the session working directory |
+| `description` | Short summary of what is being watched. Shown in the task panel and in notification summaries |
+
+**Optional fields:**
+
+| Field | Description |
+| --- | --- |
+| `when` | Controls when the monitor starts. `"always"` starts it at session start and on plugin reload, and is the default. `"on-skill-invoke:<skill-name>"` starts it the first time the named skill in this plugin is dispatched |
+
+The `command` value supports the same variable substitutions as MCP and LSP server configs: `${CLAUDE_PLUGIN_ROOT}`, `${CLAUDE_PLUGIN_DATA}`, `${user_config.*}`, and any `${ENV_VAR}` from the environment. Prefix the command with `cd "${CLAUDE_PLUGIN_ROOT}" && ` if the script needs to run from the plugin's own directory.
+
+Disabling a plugin mid-session does not stop monitors that are already running. They stop when the session ends.
+
+---
 
 ## Plugin installation scopes
 
 When you install a plugin, you choose a **scope** that determines where the plugin is available and who else can use it:
 
-| Scope     | Settings file                 | Use case                                                 |
-| :-------- | :---------------------------- | :------------------------------------------------------- |
-| `user`    | `~/.claude/settings.json`     | Personal plugins available across all projects (default) |
-| `project` | `.claude/settings.json`       | Team plugins shared via version control                  |
-| `local`   | `.claude/settings.local.json` | Project-specific plugins, gitignored                     |
-| `managed` | `managed-settings.json`       | Managed plugins (read-only, update only)                 |
+| Scope | Settings file | Use case |
+| --- | --- | --- |
+| `user` | `~/.claude/settings.json` | Personal plugins available across all projects (default) |
+| `project` | `.claude/settings.json` | Team plugins shared via version control |
+| `local` | `.claude/settings.local.json` | Project-specific plugins, gitignored |
+| `managed` | Managed settings | Managed plugins (read-only, update only) |
 
 Plugins use the same scope system as other Claude Code configurations. For installation instructions and scope flags, see [Install plugins](/en/discover-plugins#install-plugins). For a complete explanation of scopes, see [Configuration scopes](/en/settings#configuration-scopes).
 
-***
+---
 
 ## Plugin manifest schema
 
-The `plugin.json` file defines your plugin's metadata and configuration. This section documents all supported fields and options.
+The `.claude-plugin/plugin.json` file defines your plugin's metadata and configuration. This section documents all supported fields and options.
+
+The manifest is optional. If omitted, Claude Code auto-discovers components in default locations and derives the plugin name from the directory name. Use a manifest when you need to provide metadata or custom component paths.
 
 ### Complete schema
 
-```json  theme={null}
+```json
 {
   "name": "plugin-name",
   "version": "1.2.0",
@@ -296,58 +336,115 @@ The `plugin.json` file defines your plugin's metadata and configuration. This se
   "repository": "https://github.com/author/plugin",
   "license": "MIT",
   "keywords": ["keyword1", "keyword2"],
+  "skills": "./custom/skills/",
   "commands": ["./custom/commands/special.md"],
   "agents": "./custom/agents/",
-  "skills": "./custom/skills/",
   "hooks": "./config/hooks.json",
   "mcpServers": "./mcp-config.json",
   "outputStyles": "./styles/",
-  "lspServers": "./.lsp.json"
+  "lspServers": "./.lsp.json",
+  "monitors": "./monitors.json",
+  "dependencies": [
+    "helper-lib",
+    { "name": "secrets-vault", "version": "~2.1.0" }
+  ]
 }
 ```
 
 ### Required fields
 
-| Field  | Type   | Description                               | Example              |
-| :----- | :----- | :---------------------------------------- | :------------------- |
+If you include a manifest, `name` is the only required field.
+
+| Field | Type | Description | Example |
+| --- | --- | --- | --- |
 | `name` | string | Unique identifier (kebab-case, no spaces) | `"deployment-tools"` |
+
+This name is used for namespacing components. For example, in the UI, the agent `agent-creator` for the plugin with name `plugin-dev` will appear as `plugin-dev:agent-creator`.
 
 ### Metadata fields
 
-| Field         | Type   | Description                         | Example                                            |
-| :------------ | :----- | :---------------------------------- | :------------------------------------------------- |
-| `version`     | string | Semantic version                    | `"2.1.0"`                                          |
-| `description` | string | Brief explanation of plugin purpose | `"Deployment automation tools"`                    |
-| `author`      | object | Author information                  | `{"name": "Dev Team", "email": "dev@company.com"}` |
-| `homepage`    | string | Documentation URL                   | `"https://docs.example.com"`                       |
-| `repository`  | string | Source code URL                     | `"https://github.com/user/plugin"`                 |
-| `license`     | string | License identifier                  | `"MIT"`, `"Apache-2.0"`                            |
-| `keywords`    | array  | Discovery tags                      | `["deployment", "ci-cd"]`                          |
+| Field | Type | Description | Example |
+| --- | --- | --- | --- |
+| `version` | string | Semantic version. If also set in the marketplace entry, `plugin.json` takes priority. You only need to set it in one place. | `"2.1.0"` |
+| `description` | string | Brief explanation of plugin purpose | `"Deployment automation tools"` |
+| `author` | object | Author information | `{"name": "Dev Team", "email": "dev@company.com"}` |
+| `homepage` | string | Documentation URL | `"https://docs.example.com"` |
+| `repository` | string | Source code URL | `"https://github.com/user/plugin"` |
+| `license` | string | License identifier | `"MIT"`, `"Apache-2.0"` |
+| `keywords` | array | Discovery tags | `["deployment", "ci-cd"]` |
 
 ### Component path fields
 
-| Field          | Type           | Description                                                                                                                                              | Example                                |
-| :------------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- |
-| `commands`     | string\|array  | Additional command files/directories                                                                                                                     | `"./custom/cmd.md"` or `["./cmd1.md"]` |
-| `agents`       | string\|array  | Additional agent files                                                                                                                                   | `"./custom/agents/"`                   |
-| `skills`       | string\|array  | Additional skill directories                                                                                                                             | `"./custom/skills/"`                   |
-| `hooks`        | string\|object | Hook config path or inline config                                                                                                                        | `"./hooks.json"`                       |
-| `mcpServers`   | string\|object | MCP config path or inline config                                                                                                                         | `"./mcp-config.json"`                  |
-| `outputStyles` | string\|array  | Additional output style files/directories                                                                                                                | `"./styles/"`                          |
-| `lspServers`   | string\|object | [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) config for code intelligence (go to definition, find references, etc.) | `"./.lsp.json"`                        |
+| Field | Type | Description | Example |
+| --- | --- | --- | --- |
+| `skills` | string\|array | Custom skill directories containing `<name>/SKILL.md` (replaces default `skills/`) | `"./custom/skills/"` |
+| `commands` | string\|array | Custom flat `.md` skill files or directories (replaces default `commands/`) | `"./custom/cmd.md"` or `["./cmd1.md"]` |
+| `agents` | string\|array | Custom agent files (replaces default `agents/`) | `"./custom/agents/reviewer.md"` |
+| `hooks` | string\|array\|object | Hook config paths or inline config | `"./my-extra-hooks.json"` |
+| `mcpServers` | string\|array\|object | MCP config paths or inline config | `"./my-extra-mcp-config.json"` |
+| `outputStyles` | string\|array | Custom output style files/directories (replaces default `output-styles/`) | `"./styles/"` |
+| `lspServers` | string\|array\|object | Language Server Protocol configs for code intelligence (go to definition, find references, etc.) | `"./.lsp.json"` |
+| `monitors` | string\|array | Background Monitor configurations that start automatically when the plugin is active. See [Monitors](#monitors) | `"./monitors.json"` |
+| `userConfig` | object | User-configurable values prompted at enable time. See [User configuration](#user-configuration) | See below |
+| `channels` | array | Channel declarations for message injection (Telegram, Slack, Discord style). See [Channels](#channels) | See below |
+| `dependencies` | array | Other plugins this plugin requires, optionally with semver version constraints | `[{"name": "secrets-vault", "version": "~2.1.0"}]` |
+
+### User configuration
+
+The `userConfig` field declares values that Claude Code prompts the user for when the plugin is enabled. Use this instead of requiring users to hand-edit `settings.json`.
+
+```json
+{
+  "userConfig": {
+    "api_endpoint": {
+      "description": "Your team's API endpoint",
+      "sensitive": false
+    },
+    "api_token": {
+      "description": "API authentication token",
+      "sensitive": true
+    }
+  }
+}
+```
+
+Keys must be valid identifiers. Each value is available for substitution as `${user_config.KEY}` in MCP and LSP server configs, hook commands, monitor commands, and (for non-sensitive values only) skill and agent content. Values are also exported to plugin subprocesses as `CLAUDE_PLUGIN_OPTION_<KEY>` environment variables.
+
+Non-sensitive values are stored in `settings.json` under `pluginConfigs[<plugin-id>].options`. Sensitive values go to the system keychain (or `~/.claude/.credentials.json` where the keychain is unavailable). Keychain storage is shared with OAuth tokens and has an approximately 2 KB total limit, so keep sensitive values small.
+
+### Channels
+
+The `channels` field lets a plugin declare one or more message channels that inject content into the conversation. Each channel binds to an MCP server that the plugin provides.
+
+```json
+{
+  "channels": [
+    {
+      "server": "telegram",
+      "userConfig": {
+        "bot_token": { "description": "Telegram bot token", "sensitive": true },
+        "owner_id": { "description": "Your Telegram user ID", "sensitive": false }
+      }
+    }
+  ]
+}
+```
+
+The `server` field is required and must match a key in the plugin's `mcpServers`. The optional per-channel `userConfig` uses the same schema as the top-level field, letting the plugin prompt for bot tokens or owner IDs when the plugin is enabled.
 
 ### Path behavior rules
 
-**Important**: Custom paths supplement default directories - they don't replace them.
+For `skills`, `commands`, `agents`, `outputStyles`, and `monitors`, a custom path **replaces** the default. If the manifest specifies `skills`, the default `skills/` directory is not scanned; if it specifies `monitors`, the default `monitors/monitors.json` is not loaded. Hooks, MCP servers, and LSP servers have different semantics for handling multiple sources.
 
-* If `commands/` exists, it's loaded in addition to custom command paths
-* All paths must be relative to plugin root and start with `./`
-* Commands from custom paths use the same naming and namespacing rules
-* Multiple paths can be specified as arrays for flexibility
+- All paths must be relative to the plugin root and start with `./`
+- Components from custom paths use the same naming and namespacing rules
+- Multiple paths can be specified as arrays
+- To keep the default directory and add more paths for skills, commands, agents, or output styles, include the default in your array: `"skills": ["./skills/", "./extras/"]`
+- When a skill path points to a directory that contains a `SKILL.md` directly, for example `"skills": ["./"]` pointing to the plugin root, the frontmatter `name` field in `SKILL.md` determines the skill's invocation name. This gives a stable name regardless of the install directory. If `name` is not set in the frontmatter, the directory basename is used as a fallback.
 
 **Path examples**:
 
-```json  theme={null}
+```json
 {
   "commands": [
     "./specialized/deploy.md",
@@ -362,9 +459,13 @@ The `plugin.json` file defines your plugin's metadata and configuration. This se
 
 ### Environment variables
 
-**`${CLAUDE_PLUGIN_ROOT}`**: Contains the absolute path to your plugin directory. Use this in hooks, MCP servers, and scripts to ensure correct paths regardless of installation location.
+Claude Code provides two variables for referencing plugin paths. Both are substituted inline anywhere they appear in skill content, agent content, hook commands, monitor commands, and MCP or LSP server configs. Both are also exported as environment variables to hook processes and MCP or LSP server subprocesses.
 
-```json  theme={null}
+**`${CLAUDE_PLUGIN_ROOT}`**: the absolute path to your plugin's installation directory. Use this to reference scripts, binaries, and config files bundled with the plugin. This path changes when the plugin updates, so files you write here do not survive an update.
+
+**`${CLAUDE_PLUGIN_DATA}`**: a persistent directory for plugin state that survives updates. Use this for installed dependencies such as `node_modules` or Python virtual environments, generated code, caches, and any other files that should persist across plugin versions. The directory is created automatically the first time this variable is referenced.
+
+```json
 {
   "hooks": {
     "PostToolUse": [
@@ -381,60 +482,81 @@ The `plugin.json` file defines your plugin's metadata and configuration. This se
 }
 ```
 
-***
+#### Persistent data directory
 
-## Plugin caching and file resolution
+The `${CLAUDE_PLUGIN_DATA}` directory resolves to `~/.claude/plugins/data/{id}/`, where `{id}` is the plugin identifier with characters outside `a-z`, `A-Z`, `0-9`, `_`, and `-` replaced by `-`. For a plugin installed as `formatter@my-marketplace`, the directory is `~/.claude/plugins/data/formatter-my-marketplace/`.
 
-For security and verification purposes, Claude Code copies plugins to a cache directory rather than using them in-place. Understanding this behavior is important when developing plugins that reference external files.
+A common use is installing language dependencies once and reusing them across sessions and plugin updates. Because the data directory outlives any single plugin version, a check for directory existence alone cannot detect when an update changes the plugin's dependency manifest. The recommended pattern compares the bundled manifest against a copy in the data directory and reinstalls when they differ.
 
-### How plugin caching works
+This `SessionStart` hook installs `node_modules` on the first run and again whenever a plugin update includes a changed `package.json`:
 
-When you install a plugin, Claude Code copies the plugin files to a cache directory:
-
-* **For marketplace plugins with relative paths**: The path specified in the `source` field is copied recursively. For example, if your marketplace entry specifies `"source": "./plugins/my-plugin"`, the entire `./plugins` directory is copied.
-* **For plugins with `.claude-plugin/plugin.json`**: The implicit root directory (the directory containing `.claude-plugin/plugin.json`) is copied recursively.
-
-### Path traversal limitations
-
-Plugins cannot reference files outside their copied directory structure. Paths that traverse outside the plugin root (such as `../shared-utils`) will not work after installation because those external files are not copied to the cache.
-
-### Working with external dependencies
-
-If your plugin needs to access files outside its directory, you have two options:
-
-**Option 1: Use symlinks**
-
-Create symbolic links to external files within your plugin directory. Symlinks are honored during the copy process:
-
-```bash  theme={null}
-# Inside your plugin directory
-ln -s /path/to/shared-utils ./shared-utils
-```
-
-The symlinked content will be copied into the plugin cache.
-
-**Option 2: Restructure your marketplace**
-
-Set the plugin path to a parent directory that contains all required files, then provide the rest of the plugin manifest directly in the marketplace entry:
-
-```json  theme={null}
+```json
 {
-  "name": "my-plugin",
-  "source": "./",
-  "description": "Plugin that needs root-level access",
-  "commands": ["./plugins/my-plugin/commands/"],
-  "agents": ["./plugins/my-plugin/agents/"],
-  "strict": false
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "diff -q \"${CLAUDE_PLUGIN_ROOT}/package.json\" \"${CLAUDE_PLUGIN_DATA}/package.json\" >/dev/null 2>&1 || (cd \"${CLAUDE_PLUGIN_DATA}\" && cp \"${CLAUDE_PLUGIN_ROOT}/package.json\" . && npm install) || rm -f \"${CLAUDE_PLUGIN_DATA}/package.json\""
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
-This approach copies the entire marketplace root, giving your plugin access to sibling directories.
+The `diff` exits nonzero when the stored copy is missing or differs from the bundled one, covering both first run and dependency-changing updates. If `npm install` fails, the trailing `rm` removes the copied manifest so the next session retries.
 
-<Note>
-  Symlinks that point to locations outside the plugin's logical root are followed during copying. This provides flexibility while maintaining the security benefits of the caching system.
-</Note>
+Scripts bundled in `${CLAUDE_PLUGIN_ROOT}` can then run against the persisted `node_modules`:
 
-***
+```json
+{
+  "mcpServers": {
+    "routines": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/server.js"],
+      "env": {
+        "NODE_PATH": "${CLAUDE_PLUGIN_DATA}/node_modules"
+      }
+    }
+  }
+}
+```
+
+The data directory is deleted automatically when you uninstall the plugin from the last scope where it is installed. The `/plugin` interface shows the directory size and prompts before deleting. The CLI deletes by default; pass `--keep-data` to preserve it.
+
+---
+
+## Plugin caching and file resolution
+
+Plugins are specified in one of two ways:
+
+- Through `claude --plugin-dir`, for the duration of a session.
+- Through a marketplace, installed for future sessions.
+
+For security and verification purposes, Claude Code copies _marketplace_ plugins to the user's local **plugin cache** (`~/.claude/plugins/cache`) rather than using them in-place. Understanding this behavior is important when developing plugins that reference external files.
+
+Each installed version is a separate directory in the cache. When you update or uninstall a plugin, the previous version directory is marked as orphaned and removed automatically 7 days later. The grace period lets concurrent Claude Code sessions that already loaded the old version keep running without errors.
+
+Claude's Glob and Grep tools skip orphaned version directories during searches, so file results don't include outdated plugin code.
+
+### Path traversal limitations
+
+Installed plugins cannot reference files outside their directory. Paths that traverse outside the plugin root (such as `../shared-utils`) will not work after installation because those external files are not copied to the cache.
+
+### Working with external dependencies
+
+If your plugin needs to access files outside its directory, you can create symbolic links to external files within your plugin directory. Symlinks are preserved in the cache rather than dereferenced, and they resolve to their target at runtime. The following command creates a link from inside your plugin directory to a shared utilities location:
+
+```bash
+ln -s /path/to/shared-utils ./shared-utils
+```
+
+This provides flexibility while maintaining the security benefits of the caching system.
+
+---
 
 ## Plugin directory structure
 
@@ -444,24 +566,31 @@ A complete plugin follows this structure:
 
 ```
 enterprise-plugin/
-├── .claude-plugin/           # Metadata directory
-│   └── plugin.json          # Required: plugin manifest
-├── commands/                 # Default command location
-│   ├── status.md
-│   └── logs.md
-├── agents/                   # Default agent location
-│   ├── security-reviewer.md
-│   ├── performance-tester.md
-│   └── compliance-checker.md
-├── skills/                   # Agent Skills
+├── .claude-plugin/           # Metadata directory (optional)
+│   └── plugin.json             # plugin manifest
+├── skills/                   # Skills
 │   ├── code-reviewer/
 │   │   └── SKILL.md
 │   └── pdf-processor/
 │       ├── SKILL.md
 │       └── scripts/
+├── commands/                 # Skills as flat .md files
+│   ├── status.md
+│   └── logs.md
+├── agents/                   # Subagent definitions
+│   ├── security-reviewer.md
+│   ├── performance-tester.md
+│   └── compliance-checker.md
+├── output-styles/            # Output style definitions
+│   └── terse.md
+├── monitors/                 # Background monitor configurations
+│   └── monitors.json
 ├── hooks/                    # Hook configurations
 │   ├── hooks.json           # Main hook config
 │   └── security-hooks.json  # Additional hooks
+├── bin/                      # Plugin executables added to PATH
+│   └── my-tool               # Invokable as bare command in Bash tool
+├── settings.json            # Default settings for the plugin
 ├── .mcp.json                # MCP server definitions
 ├── .lsp.json                # LSP server configurations
 ├── scripts/                 # Hook and utility scripts
@@ -472,23 +601,23 @@ enterprise-plugin/
 └── CHANGELOG.md             # Version history
 ```
 
-<Warning>
-  The `.claude-plugin/` directory contains the `plugin.json` file. All other directories (commands/, agents/, skills/, hooks/) must be at the plugin root, not inside `.claude-plugin/`.
-</Warning>
-
 ### File locations reference
 
-| Component       | Default Location             | Purpose                          |
-| :-------------- | :--------------------------- | :------------------------------- |
-| **Manifest**    | `.claude-plugin/plugin.json` | Required metadata file           |
-| **Commands**    | `commands/`                  | Slash command Markdown files     |
-| **Agents**      | `agents/`                    | Subagent Markdown files          |
-| **Skills**      | `skills/`                    | Agent Skills with SKILL.md files |
-| **Hooks**       | `hooks/hooks.json`           | Hook configuration               |
-| **MCP servers** | `.mcp.json`                  | MCP server definitions           |
-| **LSP servers** | `.lsp.json`                  | Language server configurations   |
+| Component | Default Location | Purpose |
+| --- | --- | --- |
+| **Manifest** | `.claude-plugin/plugin.json` | Plugin metadata and configuration (optional) |
+| **Skills** | `skills/` | Skills with `<name>/SKILL.md` structure |
+| **Commands** | `commands/` | Skills as flat Markdown files. Use `skills/` for new plugins |
+| **Agents** | `agents/` | Subagent Markdown files |
+| **Output styles** | `output-styles/` | Output style definitions |
+| **Hooks** | `hooks/hooks.json` | Hook configuration |
+| **MCP servers** | `.mcp.json` | MCP server definitions |
+| **LSP servers** | `.lsp.json` | Language server configurations |
+| **Monitors** | `monitors/monitors.json` | Background monitor configurations |
+| **Executables** | `bin/` | Executables added to the Bash tool's `PATH`. Files here are invokable as bare commands in any Bash tool call while the plugin is enabled |
+| **Settings** | `settings.json` | Default configuration applied when the plugin is enabled. Only the `agent` and `subagentStatusLine` keys are currently supported |
 
-***
+---
 
 ## CLI commands reference
 
@@ -498,24 +627,26 @@ Claude Code provides CLI commands for non-interactive plugin management, useful 
 
 Install a plugin from available marketplaces.
 
-```bash  theme={null}
+```bash
 claude plugin install <plugin> [options]
 ```
 
 **Arguments:**
 
-* `<plugin>`: Plugin name or `plugin-name@marketplace-name` for a specific marketplace
+- `<plugin>`: Plugin name or `plugin-name@marketplace-name` for a specific marketplace
 
 **Options:**
 
-| Option                | Description                                       | Default |
-| :-------------------- | :------------------------------------------------ | :------ |
-| `-s, --scope <scope>` | Installation scope: `user`, `project`, or `local` | `user`  |
-| `-h, --help`          | Display help for command                          |         |
+| Option | Description | Default |
+| --- | --- | --- |
+| `-s, --scope <scope>` | Installation scope: `user`, `project`, or `local` | `user` |
+| `-h, --help` | Display help for command |  |
+
+Scope determines which settings file the installed plugin is added to. For example, `--scope project` writes to `enabledPlugins` in .claude/settings.json, making the plugin available to everyone who clones the project repository.
 
 **Examples:**
 
-```bash  theme={null}
+```bash
 # Install to user scope (default)
 claude plugin install formatter@my-marketplace
 
@@ -530,123 +661,140 @@ claude plugin install formatter@my-marketplace --scope local
 
 Remove an installed plugin.
 
-```bash  theme={null}
+```bash
 claude plugin uninstall <plugin> [options]
 ```
 
 **Arguments:**
 
-* `<plugin>`: Plugin name or `plugin-name@marketplace-name`
+- `<plugin>`: Plugin name or `plugin-name@marketplace-name`
 
 **Options:**
 
-| Option                | Description                                         | Default |
-| :-------------------- | :-------------------------------------------------- | :------ |
-| `-s, --scope <scope>` | Uninstall from scope: `user`, `project`, or `local` | `user`  |
-| `-h, --help`          | Display help for command                            |         |
+| Option | Description | Default |
+| --- | --- | --- |
+| `-s, --scope <scope>` | Uninstall from scope: `user`, `project`, or `local` | `user` |
+| `--keep-data` | Preserve the plugin's persistent data directory |  |
+| `-h, --help` | Display help for command |  |
 
 **Aliases:** `remove`, `rm`
+
+By default, uninstalling from the last remaining scope also deletes the plugin's `${CLAUDE_PLUGIN_DATA}` directory. Use `--keep-data` to preserve it, for example when reinstalling after testing a new version.
 
 ### plugin enable
 
 Enable a disabled plugin.
 
-```bash  theme={null}
+```bash
 claude plugin enable <plugin> [options]
 ```
 
 **Arguments:**
 
-* `<plugin>`: Plugin name or `plugin-name@marketplace-name`
+- `<plugin>`: Plugin name or `plugin-name@marketplace-name`
 
 **Options:**
 
-| Option                | Description                                    | Default |
-| :-------------------- | :--------------------------------------------- | :------ |
-| `-s, --scope <scope>` | Scope to enable: `user`, `project`, or `local` | `user`  |
-| `-h, --help`          | Display help for command                       |         |
+| Option | Description | Default |
+| --- | --- | --- |
+| `-s, --scope <scope>` | Scope to enable: `user`, `project`, or `local` | `user` |
+| `-h, --help` | Display help for command |  |
 
 ### plugin disable
 
 Disable a plugin without uninstalling it.
 
-```bash  theme={null}
+```bash
 claude plugin disable <plugin> [options]
 ```
 
 **Arguments:**
 
-* `<plugin>`: Plugin name or `plugin-name@marketplace-name`
+- `<plugin>`: Plugin name or `plugin-name@marketplace-name`
 
 **Options:**
 
-| Option                | Description                                     | Default |
-| :-------------------- | :---------------------------------------------- | :------ |
-| `-s, --scope <scope>` | Scope to disable: `user`, `project`, or `local` | `user`  |
-| `-h, --help`          | Display help for command                        |         |
+| Option | Description | Default |
+| --- | --- | --- |
+| `-s, --scope <scope>` | Scope to disable: `user`, `project`, or `local` | `user` |
+| `-h, --help` | Display help for command |  |
 
 ### plugin update
 
 Update a plugin to the latest version.
 
-```bash  theme={null}
+```bash
 claude plugin update <plugin> [options]
 ```
 
 **Arguments:**
 
-* `<plugin>`: Plugin name or `plugin-name@marketplace-name`
+- `<plugin>`: Plugin name or `plugin-name@marketplace-name`
 
 **Options:**
 
-| Option                | Description                                               | Default |
-| :-------------------- | :-------------------------------------------------------- | :------ |
-| `-s, --scope <scope>` | Scope to update: `user`, `project`, `local`, or `managed` | `user`  |
-| `-h, --help`          | Display help for command                                  |         |
+| Option | Description | Default |
+| --- | --- | --- |
+| `-s, --scope <scope>` | Scope to update: `user`, `project`, `local`, or `managed` | `user` |
+| `-h, --help` | Display help for command |  |
 
-***
+### plugin list
 
-## Debugging and development tools
+List installed plugins with their version, source marketplace, and enable status.
+
+```bash
+claude plugin list [options]
+```
+
+**Options:**
+
+| Option | Description | Default |
+| --- | --- | --- |
+| `--json` | Output as JSON |  |
+| `--available` | Include available plugins from marketplaces. Requires `--json` |  |
+| `-h, --help` | Display help for command |  |
+
+---
 
 ### Debugging commands
 
 Use `claude --debug` to see plugin loading details:
 
-```bash  theme={null}
+```bash
 claude --debug
 ```
 
 This shows:
 
-* Which plugins are being loaded
-* Any errors in plugin manifests
-* Command, agent, and hook registration
-* MCP server initialization
+- Which plugins are being loaded
+- Any errors in plugin manifests
+- Skill, agent, and hook registration
+- MCP server initialization
 
 ### Common issues
 
-| Issue                               | Cause                           | Solution                                                                          |
-| :---------------------------------- | :------------------------------ | :-------------------------------------------------------------------------------- |
-| Plugin not loading                  | Invalid `plugin.json`           | Validate JSON syntax with `claude plugin validate` or `/plugin validate`          |
-| Commands not appearing              | Wrong directory structure       | Ensure `commands/` at root, not in `.claude-plugin/`                              |
-| Hooks not firing                    | Script not executable           | Run `chmod +x script.sh`                                                          |
-| MCP server fails                    | Missing `${CLAUDE_PLUGIN_ROOT}` | Use variable for all plugin paths                                                 |
-| Path errors                         | Absolute paths used             | All paths must be relative and start with `./`                                    |
-| LSP `Executable not found in $PATH` | Language server not installed   | Install the binary (e.g., `npm install -g typescript-language-server typescript`) |
+| Issue | Cause | Solution |
+| --- | --- | --- |
+| Plugin not loading | Invalid `plugin.json` | Run `claude plugin validate` or `/plugin validate` to check `plugin.json`, skill/agent/command frontmatter, and `hooks/hooks.json` for syntax and schema errors |
+| Skills not appearing | Wrong directory structure | Ensure `skills/` or `commands/` is at the plugin root, not inside `.claude-plugin/` |
+| Hooks not firing | Script not executable | Run `chmod +x script.sh` |
+| MCP server fails | Missing `${CLAUDE_PLUGIN_ROOT}` | Use variable for all plugin paths |
+| Path errors | Absolute paths used | All paths must be relative and start with `./` |
+| LSP `Executable not found in $PATH` | Language server not installed | Install the binary (e.g., `npm install -g typescript-language-server typescript`) |
 
 ### Example error messages
 
 **Manifest validation errors**:
 
-* `Invalid JSON syntax: Unexpected token } in JSON at position 142`: check for missing commas, extra commas, or unquoted strings
-* `Plugin has an invalid manifest file at .claude-plugin/plugin.json. Validation errors: name: Required`: a required field is missing
-* `Plugin has a corrupt manifest file at .claude-plugin/plugin.json. JSON parse error: ...`: JSON syntax error
+- `Invalid JSON syntax: Unexpected token } in JSON at position 142`: check for missing commas, extra commas, or unquoted strings
+- `Plugin has an invalid manifest file at .claude-plugin/plugin.json. Validation errors: name: Required`: a required field is missing
+- `Plugin has a corrupt manifest file at .claude-plugin/plugin.json. JSON parse error: ...`: JSON syntax error
 
 **Plugin loading errors**:
 
-* `Warning: No commands found in plugin my-plugin custom directory: ./cmds. Expected .md files or SKILL.md in subdirectories.`: command path exists but contains no valid command files
-* `Plugin directory not found at path: ./plugins/my-plugin. Check that the marketplace entry has the correct path.`: the `source` path in marketplace.json points to a non-existent directory
-* `Plugin my-plugin has conflicting manifests: both plugin.json and marketplace entry specify components.`: remove duplicate component definitions or set `strict: true` in marketplace entry
+- `Warning: No commands found in plugin my-plugin custom directory: ./cmds. Expected .md files or SKILL.md in subdirectories.`: command path exists but contains no valid command files
+- `Plugin directory not found at path: ./plugins/my-plugin. Check that the marketplace entry has the correct path.`: the `source` path in marketplace.json points to a non-existent directory
+- `Plugin my-plugin has conflicting manifests: both plugin.json and marketplace entry specify components.`: remove duplicate component definitions or remove `strict: false` in marketplace entry
 
 ### Hook troubleshooting
 
@@ -661,7 +809,7 @@ This shows:
 
 1. Verify the event name is correct (case-sensitive): `PostToolUse`, not `postToolUse`
 2. Check the matcher pattern matches your tools: `"matcher": "Write|Edit"` for file operations
-3. Confirm the hook type is valid: `command`, `prompt`, or `agent`
+3. Confirm the hook type is valid: `command`, `http`, `prompt`, or `agent`
 
 ### MCP server troubleshooting
 
@@ -680,17 +828,17 @@ This shows:
 
 ### Directory structure mistakes
 
-**Symptoms**: Plugin loads but components (commands, agents, hooks) are missing.
+**Symptoms**: Plugin loads but components (skills, agents, hooks) are missing.
 
 **Correct structure**: Components must be at the plugin root, not inside `.claude-plugin/`. Only `plugin.json` belongs in `.claude-plugin/`.
 
 ```
 my-plugin/
 ├── .claude-plugin/
-│   └── plugin.json      ← Only manifest here
-├── commands/            ← At root level
-├── agents/              ← At root level
-└── hooks/               ← At root level
+│   └── plugin.json      <- Only manifest here
+├── commands/            <- At root level
+├── agents/              <- At root level
+└── hooks/               <- At root level
 ```
 
 If your components are inside `.claude-plugin/`, move them to the plugin root.
@@ -701,7 +849,7 @@ If your components are inside `.claude-plugin/`, move them to the plugin root.
 2. Check that each component directory is listed in the debug output
 3. Verify file permissions allow reading the plugin files
 
-***
+---
 
 ## Distribution and versioning reference
 
@@ -709,7 +857,7 @@ If your components are inside `.claude-plugin/`, move them to the plugin root.
 
 Follow semantic versioning for plugin releases:
 
-```json  theme={null}
+```json
 {
   "name": "my-plugin",
   "version": "2.1.0"
@@ -718,29 +866,28 @@ Follow semantic versioning for plugin releases:
 
 **Version format**: `MAJOR.MINOR.PATCH`
 
-* **MAJOR**: Breaking changes (incompatible API changes)
-* **MINOR**: New features (backward-compatible additions)
-* **PATCH**: Bug fixes (backward-compatible fixes)
+- **MAJOR**: Breaking changes (incompatible API changes)
+- **MINOR**: New features (backward-compatible additions)
+- **PATCH**: Bug fixes (backward-compatible fixes)
 
 **Best practices**:
 
-* Start at `1.0.0` for your first stable release
-* Update the version in `plugin.json` before distributing changes
-* Document changes in a `CHANGELOG.md` file
-* Use pre-release versions like `2.0.0-beta.1` for testing
+- Start at `1.0.0` for your first stable release
+- Update the version in `plugin.json` before distributing changes
+- Document changes in a `CHANGELOG.md` file
+- Use pre-release versions like `2.0.0-beta.1` for testing
 
-***
+---
 
 ## See also
 
-* [Plugins](/en/plugins) - Tutorials and practical usage
-* [Plugin marketplaces](/en/plugin-marketplaces) - Creating and managing marketplaces
-* [Slash commands](/en/slash-commands) - Command development details
-* [Subagents](/en/sub-agents) - Agent configuration and capabilities
-* [Agent Skills](/en/skills) - Extend Claude's capabilities
-* [Hooks](/en/hooks) - Event handling and automation
-* [MCP](/en/mcp) - External tool integration
-* [Settings](/en/settings) - Configuration options for plugins
+- [Plugins](/en/plugins) - Tutorials and practical usage
+- [Plugin marketplaces](/en/plugin-marketplaces) - Creating and managing marketplaces
+- [Skills](/en/skills) - Skill development details
+- [Subagents](/en/sub-agents) - Agent configuration and capabilities
+- [Hooks](/en/hooks) - Event handling and automation
+- [MCP](/en/mcp) - External tool integration
+- [Settings](/en/settings) - Configuration options for plugins
 
 
 ---

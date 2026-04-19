@@ -140,7 +140,7 @@ echo 'Fix issue #$ARGUMENTS following our coding standards' > .claude/commands/f
 Access specific arguments individually using positional parameters (similar to shell scripts):
 
 ```bash  theme={null}
-# Command definition  
+# Command definition
 echo 'Review PR #$1 with priority $2 and assign to $3' > .claude/commands/review-pr.md
 
 # Usage
@@ -463,9 +463,9 @@ When the budget is exceeded, Claude sees only a subset of available items. In `/
 
 **Examples**:
 
-* `/review` → "Review this code for bugs and suggest improvements"
-* `/explain` → "Explain this code in simple terms"
-* `/optimize` → "Analyze this code for performance issues"
+* `/review` -> "Review this code for bugs and suggest improvements"
+* `/explain` -> "Explain this code in simple terms"
+* `/optimize` -> "Analyze this code for performance issues"
 
 ### Use Skills for
 

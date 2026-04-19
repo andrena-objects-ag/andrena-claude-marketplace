@@ -453,7 +453,7 @@ Use the code-reviewer subagent to find performance issues, then use the optimize
 Use the **main conversation** when:
 
 * The task needs frequent back-and-forth or iterative refinement
-* Multiple phases share significant context (planning → implementation → testing)
+* Multiple phases share significant context (planning -> implementation -> testing)
 * You're making a quick, targeted change
 * Latency matters. Subagents start fresh and may need time to gather context
 
