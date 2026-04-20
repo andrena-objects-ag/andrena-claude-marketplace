@@ -19,5 +19,5 @@
   "commands": [
     "./commands/plan.md"
   ],
-  "hooks": "./hooks/hooks.json"
+  "hooks": ["./hooks/hooks.json"]
 }
