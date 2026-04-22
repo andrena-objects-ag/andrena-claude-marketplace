@@ -179,7 +179,7 @@
       "name": "documentation-learner",
       "source": "./plugins/documentation-learner",
       "description": "Extract key learnings from conversations and automatically update project documentation with workflows, patterns, and best practices",
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": {
         "name": "Peter Wegner",
         "email": "peter.wegner@andrena.de"
@@ -189,7 +189,10 @@
       "license": "MIT",
       "keywords": ["documentation", "learning", "workflows", "knowledge-capture", "automation"],
       "category": "productivity",
-      "tags": ["documentation", "learning", "workflows", "commands"],
+      "tags": ["documentation", "learning", "workflows", "skills"],
+      "skills": [
+        "./skills/documentation-learner"
+      ],
       "strict": false
     },
     {
