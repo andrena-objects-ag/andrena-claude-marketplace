@@ -1,12 +1,13 @@
 {
   "name": "session-inspector",
   "description": "Inspect and analyze agent session transcripts from Claude Code, Codex CLI, and GitHub Copilot CLI. Debug stopped agents, trace what an agent did, extract summaries from JSONL session files.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
-    "name": "Peter Wegner"
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
   },
-  "homepage": "https://github.com/p-wegner/claude-marketplace",
-  "repository": "https://github.com/p-wegner/claude-marketplace",
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
   "license": "MIT",
   "keywords": ["sessions", "debugging", "claude", "codex", "copilot", "transcripts", "analysis"],
   "skills": [

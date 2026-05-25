@@ -16,29 +16,42 @@ Analyze agent session transcripts across three CLI tools. Each stores session da
 
 ## Quick Analysis Script
 
-Save and run `scripts/analyze-session.mjs` for any agent's session files:
+Run the bundled `analyze-session.mjs` for any agent's session files. The script
+ships with this plugin — reference it via `${CLAUDE_PLUGIN_ROOT}` so the path
+resolves regardless of the current working directory:
 
 ```bash
-# Analyze a Claude session
-node scripts/analyze-session.mjs --agent claude --latest
+# Analyze the latest session for an agent (claude | codex | copilot)
+node "${CLAUDE_PLUGIN_ROOT}/scripts/analyze-session.mjs" --agent claude --latest
 
-# Analyze a Codex session
-node scripts/analyze-session.mjs --agent codex --latest
+# Auto-detect agent + pick the most recent session across all three
+node "${CLAUDE_PLUGIN_ROOT}/scripts/analyze-session.mjs" --agent auto --latest
 
-# Analyze a Copilot session
-node scripts/analyze-session.mjs --agent copilot --latest
+# Analyze a specific file (agent auto-detected from content if --agent auto)
+node "${CLAUDE_PLUGIN_ROOT}/scripts/analyze-session.mjs" --agent codex "path/to/session.jsonl"
 
-# Analyze a specific file
-node scripts/analyze-session.mjs --agent codex "path/to/session.jsonl"
-
-# List sessions for an agent
-node scripts/analyze-session.mjs --agent codex --list
-node scripts/analyze-session.mjs --agent copilot --list
+# List recent sessions for an agent
+node "${CLAUDE_PLUGIN_ROOT}/scripts/analyze-session.mjs" --agent claude --list
 ```
 
-Output includes: model, duration, turns, tool usage, commands run, files modified, agent messages, and errors.
+Output includes: model, duration, turns, tool usage, commands run, files
+modified, agent messages, and errors.
 
 ## Claude Code Sessions
+
+Claude has **two JSONL schemas**, and the analyzer handles both:
+
+- **On-disk transcript** (`~/.claude/projects/*.jsonl`, what this system stores):
+  identity fields (`sessionId`, `cwd`, `gitBranch`) are **top-level on every
+  record**; the model is `message.model` and token usage is `message.usage`
+  (including `cache_creation_input_tokens` / `cache_read_input_tokens`) on each
+  `assistant` record. There is **no** `system/init` or `result` line.
+- **Stream-json** (`claude -p --output-format stream-json`): a
+  `{type:"system",subtype:"init"}` event carries model/session_id/cwd, and a
+  final `{type:"result"}` event carries cumulative `usage` + `total_cost_usd`.
+
+The analyzer captures identity/model/tokens from whichever schema a file uses;
+the on-disk "in" token figure includes cached input, so it can be large.
 
 ### Directory structure
 
