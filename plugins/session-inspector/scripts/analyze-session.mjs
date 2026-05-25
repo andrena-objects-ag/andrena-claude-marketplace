@@ -325,6 +325,32 @@ function discoverCopilotSessions() {
   return sessions.sort((a, b) => b.modified - a.modified);
 }
 
+// ── Locator resolution ───────────────────────────────────────────────────
+// Accept a Claude session "locator" as shown in a statusline — either
+// "<projects-folder>/<session-id>" (the form copy-pasted between agents) or a
+// bare "<session-id>" — and resolve it to the transcript path under
+// ~/.claude/projects/. Falls back to the literal arg so readFileSync reports a
+// clear error if nothing matches.
+function resolveSessionPath(p) {
+  if (existsSync(p)) return p;
+  const abs = resolve(p);
+  if (existsSync(abs)) return abs;
+  const base = join(homedir(), ".claude", "projects");
+  const norm = p.replace(/\\/g, "/");
+  for (const cand of [join(base, norm), join(base, norm + ".jsonl")]) {
+    if (existsSync(cand)) return cand;
+  }
+  // Bare "<session-id>": search each project folder for "<id>.jsonl".
+  if (!norm.includes("/") && existsSync(base)) {
+    const fname = norm.endsWith(".jsonl") ? norm : norm + ".jsonl";
+    for (const d of readdirSync(base)) {
+      const f = join(base, d, fname);
+      if (existsSync(f)) return f;
+    }
+  }
+  return p;
+}
+
 // ── Main ─────────────────────────────────────────────────────────────────
 
 const args = process.argv.slice(2);
@@ -388,7 +414,8 @@ if (isLatest && !filePath) {
   }
 }
 
-const content = readFileSync(resolve(filePath), "utf-8");
+const resolvedPath = resolveSessionPath(filePath);
+const content = readFileSync(resolvedPath, "utf-8");
 const lines = content.split("\n");
 
 if (agentType === "auto") {

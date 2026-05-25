@@ -1,7 +1,7 @@
 {
   "name": "session-inspector",
   "description": "Inspect and analyze agent session transcripts from Claude Code, Codex CLI, and GitHub Copilot CLI. Debug stopped agents, trace what an agent did, extract summaries from JSONL session files.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Peter Wegner",
     "email": "peter.wegner@andrena.de"

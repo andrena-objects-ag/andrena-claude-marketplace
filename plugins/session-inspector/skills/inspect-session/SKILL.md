@@ -30,9 +30,18 @@ node "${CLAUDE_PLUGIN_ROOT}/scripts/analyze-session.mjs" --agent auto --latest
 # Analyze a specific file (agent auto-detected from content if --agent auto)
 node "${CLAUDE_PLUGIN_ROOT}/scripts/analyze-session.mjs" --agent codex "path/to/session.jsonl"
 
+# Analyze by Claude session LOCATOR — "<projects-folder>/<session-id>" or a bare
+# "<session-id>". This is the form a statusline can show and a user can paste
+# ("check what issues <paste> has"); it resolves under ~/.claude/projects/.
+node "${CLAUDE_PLUGIN_ROOT}/scripts/analyze-session.mjs" --agent claude "F--projects-myapp/28ddc5d5-6dd2-4f62-a6d1-adbdea490e79"
+
 # List recent sessions for an agent
 node "${CLAUDE_PLUGIN_ROOT}/scripts/analyze-session.mjs" --agent claude --list
 ```
+
+When the user pastes such a locator and asks to "check what issues it has", pass
+it straight to the script as the path argument — no need to reconstruct the full
+`~/.claude/projects/...jsonl` path.
 
 Output includes: model, duration, turns, tool usage, commands run, files
 modified, agent messages, and errors.
