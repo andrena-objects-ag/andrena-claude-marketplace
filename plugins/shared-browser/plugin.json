@@ -1,0 +1,16 @@
+{
+  "name": "shared-browser",
+  "description": "Initialize a shared, persisted Chrome session that Claude and the user both access over the Chrome DevTools Protocol. Sets up a remote-debugging Chrome (dedicated profile), a tools/cdp.js bridge, and the collaboration workflow so Claude inspects the same live, logged-in page the user sees and infers implementation from real DOM and network state.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Peter Wegner",
+    "email": "peter.wegner@andrena.de"
+  },
+  "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+  "license": "MIT",
+  "keywords": ["browser", "cdp", "chrome", "devtools-protocol", "remote-debugging", "playwright", "inspection", "shared-session", "setup"],
+  "skills": [
+    "./skills/shared-browser-setup/"
+  ]
+}

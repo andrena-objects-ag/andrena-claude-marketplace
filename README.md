@@ -133,6 +133,15 @@ Behavioral guidelines derived from Andrej Karpathy's observations on LLM coding 
 /plugin install andrej-karpathy-skills@andrena-marketplace
 ```
 
+### 🌐 [Shared Browser](./plugins/shared-browser/)
+**Type**: Plugin with Skill | **Category**: Utilities & Development
+
+Set up a shared, persisted Chrome session that Claude and you both access over the Chrome DevTools Protocol. Claude inspects the same live, logged-in page you're looking at — reusing your session to infer implementation from real DOM and network state. Scaffolds a `tools/cdp.js` bridge, a remote-debugging launch script, and the collaboration workflow.
+
+```bash
+/plugin install shared-browser@andrena-marketplace
+```
+
 ## Documentation
 
 - **[Plugins Guide](./docs/plugins.md)** - Plugin creation and usage

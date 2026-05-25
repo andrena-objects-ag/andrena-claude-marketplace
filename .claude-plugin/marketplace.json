@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "A curated marketplace for Claude Code agents, plugins, skills, and styles",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -313,6 +313,40 @@
       "keywords": ["guidelines", "best-practices", "karpathy", "simplicity", "code-quality"],
       "category": "productivity",
       "tags": ["guidelines", "best-practices", "karpathy", "simplicity", "code-quality"],
+      "strict": false
+    },
+    {
+      "name": "session-inspector",
+      "source": "./plugins/session-inspector",
+      "description": "Inspect and analyze agent session transcripts from Claude Code, Codex CLI, and GitHub Copilot CLI. Debug stopped agents, trace what an agent did, extract summaries from JSONL session files.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
+      },
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "license": "MIT",
+      "keywords": ["sessions", "debugging", "claude", "codex", "copilot", "transcripts", "analysis"],
+      "category": "utilities",
+      "tags": ["sessions", "debugging", "transcripts", "analysis", "skills"],
+      "strict": false
+    },
+    {
+      "name": "shared-browser",
+      "source": "./plugins/shared-browser",
+      "description": "Initialize a shared, persisted Chrome session that Claude and the user both access over the Chrome DevTools Protocol. Sets up a remote-debugging Chrome (dedicated profile), a tools/cdp.js bridge, and the collaboration workflow so Claude inspects the same live, logged-in page the user sees and infers implementation from real DOM and network state.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
+      },
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "license": "MIT",
+      "keywords": ["browser", "cdp", "chrome", "devtools-protocol", "remote-debugging", "playwright", "inspection", "shared-session", "setup"],
+      "category": "utilities",
+      "tags": ["browser", "cdp", "chrome", "remote-debugging", "inspection", "skills"],
       "strict": false
     }
   ]
