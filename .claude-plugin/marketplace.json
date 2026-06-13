@@ -299,6 +299,24 @@
       "strict": true
     },
     {
+      "name": "session-inspector",
+      "source": "./plugins/session-inspector",
+      "description": "Inspect and analyze agent session transcripts from Claude Code, Codex CLI, and GitHub Copilot CLI. Debug stopped agents, trace what an agent did, extract summaries from JSONL session files, plus fleet-wide token/cost, tool-failure, and prompt analysis across many sessions.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Peter Wegner",
+        "email": "peter.wegner@andrena.de"
+      },
+      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
+      "license": "MIT",
+      "keywords": ["sessions", "debugging", "claude", "codex", "copilot", "transcripts", "analysis", "tokens", "cost", "fleet"],
+      "category": "utilities",
+      "tags": ["sessions", "debugging", "transcripts", "tokens", "cost", "analysis"],
+      "skills": ["./skills/inspect-session"],
+      "strict": false
+    },
+    {
       "name": "andrej-karpathy-skills",
       "source": "./plugins/andrej-karpathy-skills",
       "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations. Enforces four principles: Think Before Coding, Simplicity First, Surgical Changes, and Goal-Driven Execution.",
@@ -313,23 +331,6 @@
       "keywords": ["guidelines", "best-practices", "karpathy", "simplicity", "code-quality"],
       "category": "productivity",
       "tags": ["guidelines", "best-practices", "karpathy", "simplicity", "code-quality"],
-      "strict": false
-    },
-    {
-      "name": "session-inspector",
-      "source": "./plugins/session-inspector",
-      "description": "Inspect and analyze agent session transcripts from Claude Code, Codex CLI, and GitHub Copilot CLI. Debug stopped agents, trace what an agent did, extract summaries from JSONL session files.",
-      "version": "1.0.2",
-      "author": {
-        "name": "Peter Wegner",
-        "email": "peter.wegner@andrena.de"
-      },
-      "homepage": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
-      "repository": "https://github.com/andrena-objects-ag/andrena-claude-marketplace",
-      "license": "MIT",
-      "keywords": ["sessions", "debugging", "claude", "codex", "copilot", "transcripts", "analysis"],
-      "category": "utilities",
-      "tags": ["sessions", "debugging", "transcripts", "analysis", "skills"],
       "strict": false
     },
     {
