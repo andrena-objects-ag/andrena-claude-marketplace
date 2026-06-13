@@ -46,6 +46,32 @@ it straight to the script as the path argument — no need to reconstruct the fu
 Output includes: model, duration, turns, tool usage, commands run, files
 modified, agent messages, and errors.
 
+## Fleet analysis — across MANY sessions
+
+`analyze-session.mjs` debugs **one** session. For aggregate, time-scoped questions across your whole session history — "what burned the most tokens", "which tools fail most", "what did I ask yesterday" — do **not** loop the single-session analyzer. Three bundled fan-out scripts answer these directly. Each stat-filters by file mtime FIRST, then parses only the in-window files (no N+1 scan), and supports `--json`.
+
+```bash
+# Token / cost sinks — rank what consumed the most across sessions (last 7d default)
+node scripts/token-sinks.mjs                 # by session, ranked by estimated USD cost
+node scripts/token-sinks.mjs --by project    # also: day | model | provider | session
+node scripts/token-sinks.mjs --days 14 --top 30 --provider claude --sort tokens
+
+# Failed tool calls — what's failing / what agents are fighting (last 7d default)
+node scripts/tool-failures.mjs               # by tool, ranked by failure count
+node scripts/tool-failures.mjs --by error    # cluster by normalized error signature (best for root-causing)
+node scripts/tool-failures.mjs --sort rate --min 15   # highest failure RATE among tools with >=15 calls
+
+# Human prompts — what you actually typed (default: yesterday, local time)
+node scripts/user-prompts.mjs                # human-typed prompts only (automated traffic filtered)
+node scripts/user-prompts.mjs --today
+node scripts/user-prompts.mjs --days 7 --tree   # hierarchical Project → Day → Chat
+```
+
+Coverage and caveats:
+- **token-sinks** — Claude (per-assistant-turn `usage`) + Codex (cumulative `token_count`). Cost ranking prices cache-read at ~0.1x and cache-write at ~1.25x, so cost is the *true* sink ranking (raw token counts are dominated by cheap cache-read). Codex tokens are counted but not costed (different provider → `$0.00`); non-Anthropic models routed through Claude Code fall back to opus pricing (over-estimate — spot them with `--by model`). Pricing constants live at the top of the script.
+- **tool-failures** — Claude failure = a `tool_result` with `is_error:true` (mapped to its tool via `tool_use_id`); Codex failure = a `function_call_output` showing a nonzero `Exit code: N` (mapped via `call_id`). `--by error` normalizes paths/numbers/quotes into a signature so identical failures cluster.
+- **user-prompts** — extracts only HUMAN-typed prompts; filters tool_results, sidechain/subagent turns, meta entries, harness `<task-notification>`/`<bash-stdout>` echoes, session handoffs, and bare UI slash commands (`/clear`, `/model`). Date scoping uses each ENTRY's own local-time timestamp (a session can span midnight); mtime is only the pre-filter. Covers Claude + Codex.
+
 ## Claude Code Sessions
 
 Claude has **two JSONL schemas**, and the analyzer handles both:
